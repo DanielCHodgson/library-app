@@ -1,19 +1,8 @@
 import Library from "./Library.js";
+import NewBookModal from "./NewBookModal.js";
 
 const library = new Library();
-
-const addBookBtn = document.getElementById('add-book');
-
-addBookBtn.addEventListener('click', function() {
-   openAddBookModal();
-});
-
-
-function openAddBookModal() {
-
-    console.log("modal opened!");
-}
-
+const modal = new NewBookModal();
 
 
 function addBookCard(title, author, description) {
