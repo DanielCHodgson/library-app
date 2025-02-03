@@ -1,0 +1,6 @@
+class Library {
+
+    constructor() {
+        
+    }
+}
