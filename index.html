@@ -41,10 +41,29 @@
     </div>
     <dialog id="new-book-modal">
         <div class="modal-content">
-          <button id="modal-close-btn">X</button>
-          <p>Here is the modal content!</p>
+            <div class="modal-header">
+                <p>Enter the book details</p>
+                <button id="modal-close-btn">X</button>
+            </div>
+            <form id="book-details">
+                <fieldset>
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" maxlength="30" required placeholder="Enter the title">
+                </fieldset>
+                <fieldset>
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author" maxlength="30" required placeholder="Enter the author's name">
+                </fieldset>
+                <fieldset>
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" maxlength="100" required
+                        placeholder="Enter a description"></textarea>
+                </fieldset>
+
+                <button id="book-submit" type="submit">Submit</button>
+            </form>
         </div>
-      </dialog>
+    </dialog>
 </body>
 
 </html>
