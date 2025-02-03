@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
 
     <link rel="stylesheet" href="./css/reset-modern.css">
     <link rel="stylesheet" href="./css/styles.css">
-    <script src="./js/Library.js" defer></script>
+    <script type="module" src="./js/app.js" defer></script>
 </head>
+
 <body>
     <div class="wrapper">
         <div class="header">
@@ -23,15 +25,20 @@
             <div class="search"></div>
         </div>
         <div class="main">
-            <h2>Your Library</h2>
+            <div class="main-header">
+                <h2>Your Library</h2>
+                <button id="add-book">+ Book</button>
+            </div>
             <div class="books-list">
                 <div class="book-card">
                     <h3 class="book-title">The Lord of the Rings</h3>
                     <p class="book-author">J.R.R Tolkien</p>
-                    <p class="book-desc">An epic adventure split across three novels. Follows the fellowship as they quest across Middle Earth to destroy the one ring.</p>
+                    <p class="book-desc">An epic adventure split across three novels. Follows the fellowship as they
+                        quest across Middle Earth to destroy the one ring.</p>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>

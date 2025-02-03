@@ -1,5 +1,5 @@
-class Library {
-
+export default class Library {
+    
     booksList = [];
 
     constructor() {

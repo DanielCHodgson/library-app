@@ -1,4 +1,18 @@
+import Library from "./Library.js";
+
 const library = new Library();
+
+const addBookBtn = document.getElementById('add-book');
+
+addBookBtn.addEventListener('click', function() {
+   openAddBookModal();
+});
+
+
+function openAddBookModal() {
+
+    console.log("modal opened!");
+}
 
 
 
