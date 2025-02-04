@@ -3,15 +3,15 @@ import Book from "./Book.js";
 export default class Library {
 
     booksList = [];
-    availableID = 1;
+    availableId = 1;
 
     constructor() {
         this.booksList = this.booksList;
     }
 
     addBookToLibrary(title, author, description) {
-        this.booksList.push(new Book(this.availableID, title, author, description))
-        this.availableID += 1;
+        this.booksList.push(new Book(this.availableId, title, author, description))
+        this.availableId += 1;
     }
 
     removeBookFromLibrary(id) {
@@ -19,7 +19,7 @@ export default class Library {
     }
 
     removeBookCardFromDom(id) {
-        const card = document.querySelector(`[data-book-i-d="${id}"]`)
+        const card = document.querySelector(`[data-book-id="${id}"]`)
 
         if (card)
             card.remove();
@@ -28,28 +28,45 @@ export default class Library {
     addBookCardToDom(book, parentElement) {
 
         const { id, title, author, description } = book;
-   
-        let card = document.createElement("div");
-        card.classList.add("book-card");
-        card.dataset.bookID = id;
 
-        let cardTitle = document.createElement("h3");
+        const card = document.createElement("div");
+        card.classList.add("book-card");
+        card.dataset.bookId = id;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("card-delete-btn");
+        deleteBtn.textContent = "X";
+        deleteBtn.addEventListener("click", (event) => this.deleteCardFromDom(event));
+
+        const cardTitle = document.createElement("h3");
         cardTitle.classList.add("book-title");
         cardTitle.textContent = title;
 
-        let cardAuthor = document.createElement("p");
+        const cardAuthor = document.createElement("p");
         cardAuthor.classList.add("book-author");
         cardAuthor.textContent = author;
 
-        let cardDesc = document.createElement("p");
+        const cardDesc = document.createElement("p");
         cardDesc.classList.add("book-desc");
         cardDesc.textContent = description;
 
+        card.appendChild(deleteBtn);
         card.appendChild(cardTitle);
         card.appendChild(cardAuthor);
         card.appendChild(cardDesc);
 
         parentElement.appendChild(card);
+    }
+
+
+    deleteCardFromDom(event) {
+
+        const deletebutton = event.target;
+        const cardDiv = deletebutton.parentNode;
+        const id = cardDiv.dataset.bookId;
+
+        this.removeBookFromLibrary(id);
+        this.removeBookCardFromDom(id);
     }
 
 }

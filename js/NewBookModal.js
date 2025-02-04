@@ -1,5 +1,3 @@
-import Book from "./Book.js";
-
 export default class NewBookModal {
 
   constructor(library) {
@@ -9,7 +7,7 @@ export default class NewBookModal {
     this.openButton = document.getElementById("add-book");
     this.closeButton = document.getElementById("modal-close-btn");
     this.submitButton = document.getElementById("book-submit");
-    this.deleteButton = document.getElementById("card-delete-btn");
+    this.deleteButtons = document.getElementsByClassName("card-delete-btn");
 
     this.bindEvents();
   }
@@ -39,6 +37,7 @@ export default class NewBookModal {
     this.library.addBookToLibrary(title, author, description)
     this.library.addBookCardToDom(books[books.length - 1], document.querySelector(".books-list"));
     this.form.reset();
+    this.close();
   }
 
   isValidEntry(title, author, description) {
@@ -68,22 +67,10 @@ export default class NewBookModal {
     return true;
   }
 
-
-  deleteCard(event) {
-
-    const deletebutton = event.target;
-    const cardDiv = deletebutton.parentNode;
-    const id = cardDiv.dataset.bookID;
-
-    this.library.removeBookFromLibrary(id);
-    this.library.removeBookCardFromDom(id);
-  }
-
   bindEvents() {
 
     this.openButton.addEventListener("click", () => this.open());
     this.closeButton.addEventListener("click", () => this.close());
-    this.deleteButton.addEventListener("click", (event) => this.deleteCard(event));
     this.submitButton.addEventListener("click", (event) => this.submit(event));
     
     this.dialog.addEventListener("click", (event) => {
