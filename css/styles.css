@@ -6,7 +6,7 @@
     font-weight: 500;
     font-style: normal;
     font-variation-settings:
-    "wdth" 100;
+        "wdth" 100;
 }
 
 
@@ -66,20 +66,19 @@
 }
 
 #add-book:hover {
-   opacity: 0.7;
+    opacity: 0.7;
 }
 
 
 .books-list {
     padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
 .book-card {
-    max-width: 200px;
-    height: 320px;
+    width: 240px;
+    height: 300px;
     padding: 1rem 1.5rem 0rem 1.5rem;
     border: 2px solid #b4b2b2;
     border-radius: 10px;
@@ -109,10 +108,14 @@
 
 .book-desc {
     max-width: 150px;
-    padding: 0.2rem 0 1rem 0;
+    padding: 1rem 0;
     font-size: 0.9rem;
     font-weight: 400;
     overflow-wrap: break-word;
+}
+
+.read-status {
+    padding-bottom: 1rem;
 }
 
 
@@ -151,13 +154,65 @@
     display: flex;
     flex-direction: column;
 }
+
 #modal-close-btn {
     width: 2rem;
     height: 2rem;
     justify-self: end;
 }
 
+
+fieldset.checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 #book-submit {
-  border-radius: 20px;
-  padding: 0.2rem 1rem;
+    border-radius: 20px;
+    padding: 0.2rem 1rem;
+}
+
+
+/*Checkbox styles by Stephanie Eckles 2021 */
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--form-background);
+    margin: 0;
+
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    box-shadow: inset 1em 1em var(#c17cd6);
+    background-color: #8326a0;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+
+input[type="checkbox"]:disabled {
+    --form-control-color: var(--form-control-disabled);
+    color: var(--form-control-disabled);
+    cursor: not-allowed;
 }
