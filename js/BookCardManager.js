@@ -1,20 +1,16 @@
 export default class BookCardManager {
 
-    constructor(library) {
+    constructor(library, parentElement) {
         this.library = library;
-        const books = this.library.booksList;
+        this.parentElement = parentElement || document.querySelector(".books-list");
 
-        this.parentElement = document.querySelector(".books-list");
-
-        books.forEach(book => {
-            this.addBookCardToDom(book, document.querySelector(".books-list"))
+        this.library.booksList.forEach(book => {
+            this.addBookCardToDom(book);
         });
     }
 
-   
     addBookCardToDom(book) {
-
-        const { id, title, author, description, read } = book;
+        const { id, title, author, description } = book;
 
         const card = document.createElement("div");
         card.classList.add("book-card");
@@ -50,7 +46,7 @@ export default class BookCardManager {
 
         let setReadBtn = document.createElement("button");
         setReadBtn.id = "set-read";
-        setReadBtn.textContent = book.read ? "Mark as Unread" : "Mark as Read";
+        setReadBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
         setReadBtn.addEventListener("click", () => this.toggleReadStatus(book));
 
         readSection.appendChild(setReadBtn);
@@ -64,11 +60,13 @@ export default class BookCardManager {
         this.library.toggleBookRead(book.id);
         this.updateReadInDom(book);
     }
-    
+
     updateReadInDom(book) {
         const card = this.parentElement.querySelector(`[data-book-id="${book.id}"]`);
         const statusText = card.querySelector(".read-status");
         statusText.textContent = book.read ? "✅" : "❌";
+        const readBtn = card.querySelector("#set-read");
+        readBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
     }
 
 
@@ -76,7 +74,7 @@ export default class BookCardManager {
         const deletebutton = event.target;
         const cardDiv = deletebutton.parentNode;
         const id = cardDiv.dataset.bookId;
-        
+
         this.removeBookFromLibrary(id);
         this.removeBookCardFromDom(id);
     }
@@ -84,10 +82,8 @@ export default class BookCardManager {
     removeBookCardFromDom(id) {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
-    
+
     removeBookFromLibrary(id) {
         this.library.removeBookFromLibrary(id);
     }
-
-
 }
