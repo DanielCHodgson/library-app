@@ -2,20 +2,17 @@ export default class BookCardManager {
 
     constructor(library) {
         this.library = library;
-
         const books = this.library.booksList;
+
+        this.parentElement = document.querySelector(".books-list");
 
         books.forEach(book => {
             this.addBookCardToDom(book, document.querySelector(".books-list"))
         });
-       
     }
 
-    removeBookCardFromDom(id) {
-        document.querySelector(`[data-book-id="${id}"]`)?.remove();
-    }
-
-    addBookCardToDom(book, parentElement) {
+   
+    addBookCardToDom(book) {
 
         const { id, title, author, description, read } = book;
 
@@ -27,9 +24,9 @@ export default class BookCardManager {
         card.appendChild(this.createElement("h3", "book-title", title));
         card.appendChild(this.createElement("p", "book-author", `Author: ${author}`));
         card.appendChild(this.createElement("p", "book-desc", description));
-        card.appendChild(this.createReadSection());
+        card.appendChild(this.createReadSection(book));
 
-        parentElement.appendChild(card);
+        this.parentElement.appendChild(card);
     }
 
     createElement(tag, className, textContent) {
@@ -47,31 +44,49 @@ export default class BookCardManager {
         return deleteBtn;
     }
 
-    createReadSection() {
-
+    createReadSection(book) {
         const readSection = document.createElement("div");
         readSection.classList.add("read-status-section");
 
         let setReadBtn = document.createElement("button");
         setReadBtn.id = "set-read";
-        setReadBtn.textContent = "Read?"
-        readSection.appendChild(setReadBtn);
+        setReadBtn.textContent = book.read ? "Mark as Unread" : "Mark as Read";
+        setReadBtn.addEventListener("click", () => this.toggleReadStatus(book));
 
-        let readDisplay = read ? "✅" : "❌" ;
-        readSection.appendChild(this.createElement("p", "read-status", readDisplay));
+        readSection.appendChild(setReadBtn);
+        readSection.appendChild(this.createElement("p", "read-status", book.read ? "✅" : "❌"));
 
         return readSection;
     }
 
 
-    deleteCard(event) {
+    toggleReadStatus(book) {
+        this.library.toggleBookRead(book.id);
+        this.updateReadInDom(book);
+    }
+    
+    updateReadInDom(book) {
+        const card = this.parentElement.querySelector(`[data-book-id="${book.id}"]`);
+        const statusText = card.querySelector(".read-status");
+        statusText.textContent = book.read ? "✅" : "❌";
+    }
 
+
+    deleteCard(event) {
         const deletebutton = event.target;
         const cardDiv = deletebutton.parentNode;
         const id = cardDiv.dataset.bookId;
-
-        this.library.removeBookFromLibrary(id);
+        
+        this.removeBookFromLibrary(id);
         this.removeBookCardFromDom(id);
+    }
+
+    removeBookCardFromDom(id) {
+        document.querySelector(`[data-book-id="${id}"]`)?.remove();
+    }
+    
+    removeBookFromLibrary(id) {
+        this.library.removeBookFromLibrary(id);
     }
 
 
