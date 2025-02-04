@@ -2,33 +2,28 @@ import Book from "./Book.js";
 
 export default class Library {
 
-    booksList = [];
-    availableId = 1;
-
     constructor() {
-        this.booksList = this.booksList;
+        this.booksList = [];
+        this.availableId = 1;
         this.addTestBooks();
     }
 
-    addBookToLibrary(title, author, description) {
-        this.booksList.push(new Book(this.availableId, title, author, description))
+    addBookToLibrary(title, author, description, read) {
+        this.booksList.push(new Book(this.availableId, title, author, description, read))
         this.availableId += 1;
     }
 
     removeBookFromLibrary(id) {
-        this.booksList = this.booksList.filter(book => book.id != id);
+        this.booksList = this.booksList.filter(book => book.id !== id);
     }
 
     removeBookCardFromDom(id) {
-        const card = document.querySelector(`[data-book-id="${id}"]`)
-
-        if (card)
-            card.remove();
+        document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
 
     addBookCardToDom(book, parentElement) {
 
-        const { id, title, author, description } = book;
+        const { id, title, author, description, read } = book;
 
         const card = document.createElement("div");
         card.classList.add("book-card");
@@ -39,24 +34,21 @@ export default class Library {
         deleteBtn.textContent = "X";
         deleteBtn.addEventListener("click", (event) => this.deleteCardFromDom(event));
 
-        const cardTitle = document.createElement("h3");
-        cardTitle.classList.add("book-title");
-        cardTitle.textContent = title;
+        card.appendChild(this.createElement("h3", "book-title", title));
+        card.appendChild(this.createElement("p", "book-author", `Author: ${author}`));
+        card.appendChild(this.createElement("p", "book-desc", description));
 
-        const cardAuthor = document.createElement("p");
-        cardAuthor.classList.add("book-author");
-        cardAuthor.textContent = author;
-
-        const cardDesc = document.createElement("p");
-        cardDesc.classList.add("book-desc");
-        cardDesc.textContent = description;
-
-        card.appendChild(deleteBtn);
-        card.appendChild(cardTitle);
-        card.appendChild(cardAuthor);
-        card.appendChild(cardDesc);
+        let readDisplay = read ? "✅" : "❌" ;
+        card.appendChild(this.createElement("p", "read-status", "Read? " + readDisplay));
 
         parentElement.appendChild(card);
+    }
+
+    createElement(tag, className, textContent) {
+        const element = document.createElement(tag);
+        element.classList.add(className);
+        element.textContent = textContent;
+        return element;
     }
 
 
@@ -73,8 +65,15 @@ export default class Library {
 
     // method for adding dummy data
     addTestBooks() {
-        this.addBookToLibrary("The Lord of the Rings", "J.R.R Tolkien", "An epic adventure split across three novels. Follows the fellowship as they quest across Middle Earth to destroy the one ring.");
-        this.addBookCardToDom(this.booksList[this.booksList.length - 1], document.querySelector(".books-list"))
+        this.addBookToLibrary(
+            "The Lord of the Rings",
+            "J.R.R Tolkien",
+            "An epic adventure split across three novels. Follows the fellowship as they quest across Middle Earth to destroy the one ring.",
+            false
+        );
+
+        const lastBook = this.booksList[this.booksList.length - 1];
+        this.addBookCardToDom(lastBook, document.querySelector(".books-list"));
     }
 
 }

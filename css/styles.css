@@ -30,6 +30,8 @@
     height: 2rem;
     padding: 0 0.5rem;
     margin-left: auto;
+    border: none;
+    outline: none;
     border-radius: 20px;
     background-color: #e6e6e6;
 }
@@ -77,7 +79,7 @@
 
 .book-card {
     max-width: 200px;
-    height: auto;
+    height: 320px;
     padding: 1rem 1.5rem 0rem 1.5rem;
     border: 2px solid #b4b2b2;
     border-radius: 10px;

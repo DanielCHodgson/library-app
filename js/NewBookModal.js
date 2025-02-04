@@ -8,6 +8,7 @@ export default class NewBookModal {
     this.closeButton = document.getElementById("modal-close-btn");
     this.submitButton = document.getElementById("book-submit");
     this.deleteButtons = document.getElementsByClassName("card-delete-btn");
+    this.readCheckbox = document.getElementById("read");
 
     this.bindEvents();
   }
@@ -28,13 +29,14 @@ export default class NewBookModal {
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const description = document.getElementById('description').value;
+    const read = this.readCheckbox.checked;
 
 
     if (!this.isValidEntry(title, author, description)) {
       return;
     }
 
-    this.library.addBookToLibrary(title, author, description)
+    this.library.addBookToLibrary(title, author, description, read);
     this.library.addBookCardToDom(books[books.length - 1], document.querySelector(".books-list"));
     this.form.reset();
     this.close();
@@ -42,26 +44,23 @@ export default class NewBookModal {
 
   isValidEntry(title, author, description) {
 
-    if (title.length <= 0) {
-      alert("Enter a title");
-      return false;
+    title = title.trim();
+    author = author.trim();
+    description = description.trim();
+
+    const errors = [];
+
+    if (!title) errors.push("Enter a title.");
+    if (!author) errors.push("Enter an author.");
+    if (!description) errors.push("Enter a description.");
+
+    if (author && /\d/.test(author)) {
+        errors.push("The author name cannot contain numbers.");
     }
 
-    if (author.length <= 0) {
-      alert("Enter an author");
-      return false;
-    }
-
-    if (description.length <= 0) {
-      alert("Enter an author");
-      return false;
-    }
-
-    const authorPattern = /^[^0-9]*$/;
-
-    if (!authorPattern.test(author)) {
-      alert("The author name cannot contain numbers");
-      return false;
+    if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
     }
 
     return true;
@@ -72,12 +71,5 @@ export default class NewBookModal {
     this.openButton.addEventListener("click", () => this.open());
     this.closeButton.addEventListener("click", () => this.close());
     this.submitButton.addEventListener("click", (event) => this.submit(event));
-    
-    this.dialog.addEventListener("click", (event) => {
-      if (event.target === this.dialog) {
-        this.form.reset();
-        this.close();
-      }
-    });
   }
 }
