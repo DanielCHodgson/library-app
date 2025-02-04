@@ -18,7 +18,7 @@ export default class BookCardManager {
 
         card.appendChild(this.createDeleteBtn());
         card.appendChild(this.createElement("h3", "book-title", title));
-        card.appendChild(this.createElement("p", "book-author", `Author: ${author}`));
+        card.appendChild(this.createElement("p", "book-author", author));
         card.appendChild(this.createElement("p", "book-desc", description));
         card.appendChild(this.createReadSection(book));
 

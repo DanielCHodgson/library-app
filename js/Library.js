@@ -21,12 +21,10 @@ export default class Library {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
 
-
     toggleBookRead(id) {
         const book = this.getBookById(id);
         book.toggleRead();
     }
-
 
     getBookById(id) {
         return this.booksList.find(book => book.id === id);
@@ -40,7 +38,5 @@ export default class Library {
             "An epic adventure split across three novels. Follows the fellowship as they quest across Middle Earth to destroy the one ring.",
             false
         );
-
     }
-
 }

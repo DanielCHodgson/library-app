@@ -9,7 +9,6 @@
         "wdth" 100;
 }
 
-
 button {
     cursor:pointer
 }
@@ -95,24 +94,19 @@ button {
 }
 
 .card-delete-btn {
-
-    font-size: 0.7rem;
     width: 1.3rem;
     height: 1.3rem;
     padding: 0;
-
-    color: white;
-    background-color: #b92525;
-
-    text-align: center;
-    justify-self: flex-end;
     border: none;
     border-radius: 5px;
-
-    cursor: pointer;
-
+    color: white;
+    background-color: #b92525;
+    font-size: 0.7rem;
+    text-align: center;
+    justify-self: flex-end;
     display: grid;
     place-items: center;
+    cursor: pointer;
 }
 
 
@@ -160,7 +154,6 @@ button:hover {
     transition: all ease 0.2s;
 }
 
-
 #new-book-modal {
     width: 300px;
     margin: auto;
@@ -171,20 +164,16 @@ button:hover {
     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
 }
 
-
 .modal-content {
     display: grid;
     grid-template-rows: auto auto auto;
     gap: 1rem;
 }
 
-
-
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .modal-content textarea {
