@@ -1,27 +1,19 @@
-import Book from "./Book.js";
+export default class BookCardManager {
 
-export default class Library {
+    constructor(library) {
+        this.library = library;
 
-    constructor() {
-        this.booksList = [];
-        this.availableId = 1;
-        this.addTestBooks();
-    }
+        const books = this.library.booksList;
 
-    addBookToLibrary(title, author, description, read) {
-        this.booksList.push(new Book(this.availableId, title, author, description, read))
-        this.availableId += 1;
-    }
-
-    removeBookFromLibrary(id) {
-        this.booksList = this.booksList.filter(book => book.id !== id);
+        books.forEach(book => {
+            this.addBookCardToDom(book, document.querySelector(".books-list"))
+        });
+       
     }
 
     removeBookCardFromDom(id) {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
-
-    /*
 
     addBookCardToDom(book, parentElement) {
 
@@ -37,8 +29,6 @@ export default class Library {
         card.appendChild(this.createElement("p", "book-desc", description));
         card.appendChild(this.createReadSection());
 
-
-
         parentElement.appendChild(card);
     }
 
@@ -53,7 +43,7 @@ export default class Library {
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("card-delete-btn");
         deleteBtn.textContent = "✖";
-        deleteBtn.addEventListener("click", (event) => this.deleteCardFromDom(event));
+        deleteBtn.addEventListener("click", (event) => this.deleteCard(event));
         return deleteBtn;
     }
 
@@ -67,37 +57,22 @@ export default class Library {
         setReadBtn.textContent = "Read?"
         readSection.appendChild(setReadBtn);
 
-        let readDisplay = read ? "✅" : "❌";
+        let readDisplay = read ? "✅" : "❌" ;
         readSection.appendChild(this.createElement("p", "read-status", readDisplay));
 
         return readSection;
     }
 
 
-    deleteCardFromDom(event) {
+    deleteCard(event) {
 
         const deletebutton = event.target;
         const cardDiv = deletebutton.parentNode;
         const id = cardDiv.dataset.bookId;
 
-        this.removeBookFromLibrary(id);
+        this.library.removeBookFromLibrary(id);
         this.removeBookCardFromDom(id);
     }
 
-*/
-
-
-    // method for adding dummy data
-    addTestBooks() {
-        this.addBookToLibrary(
-            "The Lord of the Rings",
-            "J.R.R Tolkien",
-            "An epic adventure split across three novels. Follows the fellowship as they quest across Middle Earth to destroy the one ring.",
-            false
-        );
-
-        //const lastBook = this.booksList[this.booksList.length - 1];
-        //this.addBookCardToDom(lastBook, document.querySelector(".books-list"));
-    }
 
 }

@@ -1,7 +1,8 @@
 export default class NewBookModal {
 
-  constructor(library) {
+  constructor(library, bookCardManager) {
     this.library = library;
+    this.bookCardManager = bookCardManager;
     this.dialog = document.getElementById("new-book-modal");
     this.form = document.getElementById("book-details");
     this.openButton = document.getElementById("add-book");
@@ -37,7 +38,7 @@ export default class NewBookModal {
     }
 
     this.library.addBookToLibrary(title, author, description, read);
-    this.library.addBookCardToDom(books[books.length - 1], document.querySelector(".books-list"));
+    this.bookCardManager.addBookCardToDom(books[books.length - 1], document.querySelector(".books-list"));
     this.form.reset();
     this.close();
   }
