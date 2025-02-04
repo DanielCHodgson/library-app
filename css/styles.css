@@ -12,6 +12,8 @@
 
 .wrapper {
     width: 100%;
+    max-width: 1000px;
+    margin: auto;
     height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr;
@@ -74,7 +76,7 @@
 }
 
 .book-card {
-    width: 200px;
+    max-width: 200px;
     height: auto;
     padding: 1rem 1.5rem 0rem 1.5rem;
     border: 2px solid #b4b2b2;
@@ -82,6 +84,14 @@
     display: grid;
     grid-template-rows: auto auto 1fr;
     transition: border 0.2s ease;
+}
+
+#card-delete-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    text-align: center;
+    padding: 0;
+    justify-self: flex-end;
 }
 
 .book-title {
@@ -96,9 +106,11 @@
 }
 
 .book-desc {
+    max-width: 150px;
     padding: 0.2rem 0 1rem 0;
     font-size: 0.9rem;
     font-weight: 400;
+    overflow-wrap: break-word;
 }
 
 

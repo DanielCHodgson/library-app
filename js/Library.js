@@ -14,14 +14,12 @@ export default class Library {
         this.availableID += 1;
     }
 
-    removeBookFromLibrary(bookToRemove) {
-        const id = bookToRemove.id;
+    removeBookFromLibrary(id) {
         this.booksList = this.booksList.filter(book => book.id != id);
     }
 
-    removeBookCardFromDom(bookToRemove) {
-        const id = bookToRemove.id;
-        const card = document.querySelector(`[bookID=${id}]`)
+    removeBookCardFromDom(id) {
+        const card = document.querySelector(`[data-book-i-d="${id}"]`)
 
         if (card)
             card.remove();
@@ -29,13 +27,8 @@ export default class Library {
 
     addBookCardToDom(book, parentElement) {
 
-        const id = book.id;
-        const title = book.title;
-        const author = book.author;
-        const description = book.description;
-
-        console.log("id: " + id + "  title: " + title + "  author: " + author + "  desc: " + description)
-
+        const { id, title, author, description } = book;
+   
         let card = document.createElement("div");
         card.classList.add("book-card");
         card.dataset.bookID = id;

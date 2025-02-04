@@ -9,6 +9,7 @@ export default class NewBookModal {
     this.openButton = document.getElementById("add-book");
     this.closeButton = document.getElementById("modal-close-btn");
     this.submitButton = document.getElementById("book-submit");
+    this.deleteButton = document.getElementById("card-delete-btn");
 
     this.bindEvents();
   }
@@ -67,14 +68,26 @@ export default class NewBookModal {
     return true;
   }
 
+
+  deleteCard(event) {
+
+    const deletebutton = event.target;
+    const cardDiv = deletebutton.parentNode;
+    const id = cardDiv.dataset.bookID;
+
+    this.library.removeBookFromLibrary(id);
+    this.library.removeBookCardFromDom(id);
+  }
+
   bindEvents() {
 
     this.openButton.addEventListener("click", () => this.open());
     this.closeButton.addEventListener("click", () => this.close());
-    this.submitButton.addEventListener("click", (event) => this.submit(event))
+    this.deleteButton.addEventListener("click", (event) => this.deleteCard(event));
+    this.submitButton.addEventListener("click", (event) => this.submit(event));
+    
     this.dialog.addEventListener("click", (event) => {
       if (event.target === this.dialog) {
-
         this.form.reset();
         this.close();
       }
