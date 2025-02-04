@@ -10,6 +10,11 @@
 }
 
 
+button {
+    cursor:pointer
+}
+
+
 .wrapper {
     width: 100%;
     max-width: 1000px;
@@ -78,44 +83,75 @@
 
 .book-card {
     width: 240px;
-    height: 300px;
-    padding: 1rem 1.5rem 0rem 1.5rem;
+    height: 320px;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
     border: 2px solid #b4b2b2;
     border-radius: 10px;
     display: grid;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto auto auto;
     transition: border 0.2s ease;
 }
 
 .card-delete-btn {
-    width: 1.5rem;
-    height: 1.5rem;
-    text-align: center;
+
+    font-size: 0.7rem;
+    width: 1.3rem;
+    height: 1.3rem;
     padding: 0;
+
+    color: white;
+    background-color: #b92525;
+
+    text-align: center;
     justify-self: flex-end;
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    display: grid;
+    place-items: center;
+}
+
+
+button:hover {
+    opacity: 0.9;
 }
 
 .book-title {
-    padding: 0.2rem 0;
     font-size: 1.2rem;
 }
 
 .book-author {
-    padding: 0.2rem 0;
     font-size: 1rem;
     color: #b4b2b2;
 }
 
 .book-desc {
     max-width: 150px;
-    padding: 1rem 0;
     font-size: 0.9rem;
     font-weight: 400;
     overflow-wrap: break-word;
 }
 
+.read-status-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#set-read {
+    height: 2rem;
+    border-radius: 7px;
+}
+
+#set-read:hover {
+    opacity: 0.7;
+}
+
 .read-status {
-    padding-bottom: 1rem;
+    font-size: 1.9rem;
+    transition: all ease 0.2s;
 }
 
 

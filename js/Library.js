@@ -29,17 +29,13 @@ export default class Library {
         card.classList.add("book-card");
         card.dataset.bookId = id;
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("card-delete-btn");
-        deleteBtn.textContent = "X";
-        deleteBtn.addEventListener("click", (event) => this.deleteCardFromDom(event));
-
+        card.appendChild(this.createDeleteBtn());
         card.appendChild(this.createElement("h3", "book-title", title));
         card.appendChild(this.createElement("p", "book-author", `Author: ${author}`));
         card.appendChild(this.createElement("p", "book-desc", description));
+        card.appendChild(this.createReadSection());
 
-        let readDisplay = read ? "✅" : "❌" ;
-        card.appendChild(this.createElement("p", "read-status", "Read? " + readDisplay));
+
 
         parentElement.appendChild(card);
     }
@@ -49,6 +45,30 @@ export default class Library {
         element.classList.add(className);
         element.textContent = textContent;
         return element;
+    }
+
+    createDeleteBtn() {
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("card-delete-btn");
+        deleteBtn.textContent = "✖";
+        deleteBtn.addEventListener("click", (event) => this.deleteCardFromDom(event));
+        return deleteBtn;
+    }
+
+    createReadSection() {
+
+        const readSection = document.createElement("div");
+        readSection.classList.add("read-status-section");
+
+        let setReadBtn = document.createElement("button");
+        setReadBtn.id = "set-read";
+        setReadBtn.textContent = "Read?"
+        readSection.appendChild(setReadBtn);
+
+        let readDisplay = read ? "✅" : "❌" ;
+        readSection.appendChild(this.createElement("p", "read-status", readDisplay));
+
+        return readSection;
     }
 
 
