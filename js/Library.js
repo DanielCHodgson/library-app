@@ -7,6 +7,7 @@ export default class Library {
 
     constructor() {
         this.booksList = this.booksList;
+        this.addTestBooks();
     }
 
     addBookToLibrary(title, author, description) {
@@ -67,6 +68,13 @@ export default class Library {
 
         this.removeBookFromLibrary(id);
         this.removeBookCardFromDom(id);
+    }
+
+
+    // method for adding dummy data
+    addTestBooks() {
+        this.addBookToLibrary("The Lord of the Rings", "J.R.R Tolkien", "An epic adventure split across three novels. Follows the fellowship as they quest across Middle Earth to destroy the one ring.");
+        this.addBookCardToDom(this.booksList[this.booksList.length - 1], document.querySelector(".books-list"))
     }
 
 }
