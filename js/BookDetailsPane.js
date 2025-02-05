@@ -2,55 +2,47 @@ export default class BookcontainerElement {
 
     constructor(containerElement) {
         this.containerElement = containerElement;
+        this.isActive = false;
     }
 
     togglPane() {
         this.containerElement.classList.toggle("active");
+        this.isActive = !this.isActive;
     }
 
 
     setDetails(book) {
-
         if (!this.containerElement) return;
-
-        this.containerElement.querySelectorAll(".book-details").forEach(div => div.remove());
-
-        const cardDetails = document.createElement("div");
-        cardDetails.classList.add("book-details");
-
-        cardDetails.appendChild(this.createElement("h3", "book-title", book.title));
-        cardDetails.appendChild(this.createElement("p", "book-author", book.author));
-        cardDetails.appendChild(this.createElement("p", "book-desc", book.description));
-        cardDetails.appendChild(this.createReadSection(book));
-
-        this.containerElement.appendChild(cardDetails);
-
-        return cardDetails;
+        this.#setBookDetails(book);
+        this.#setReadSection(book);
     }
 
-    createElement(tag, className, textContent) {
-        const element = document.createElement(tag);
-        element.classList.add(className);
-        element.textContent = textContent;
-        return element;
+
+    #setBookDetails(book) {
+
+        const title = document.querySelector(".book-title");
+
+        console.log(title)
+        title.textContent = book.title;
+
+        const author = document.querySelector(".book-author");
+        author.textContent = book.author;
+
+        const desc = document.querySelector(".book-desc");
+        desc.textContent = book.description;  
     }
 
-    createReadSection(book) {
-        const readSection = document.createElement("div");
-        readSection.classList.add("read-status-section");
 
-        let setReadBtn = document.createElement("button");
-        setReadBtn.id = "set-read";
+    #setReadSection(book) {
+        const setReadBtn = document.getElementById("set-read");
         setReadBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
         setReadBtn.addEventListener("click", () => this.toggleBookReadStatus(book));
 
-        readSection.appendChild(setReadBtn);
-        readSection.appendChild(this.createElement("p", "read-status", book.read ? "✅" : "❌"));
-
-        return readSection;
+        const readStatus = document.querySelector(".read-status")
+        readStatus.textContent = book.read ? "✅" : "❌";
     }
 
-    styleUnselectedCards(currentCard) {
+    #styleUnselectedCards(currentCard) {
         //this.cardList.find(card => card !== currentCard).forEach(card=> 
         //card.classList.add("") )
     }

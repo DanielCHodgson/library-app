@@ -21,7 +21,7 @@ export default class BookCard {
 
         card.appendChild(this.createDeleteBtn());
         this.handleCardSelected(card, book);
-     
+
         return card;
     }
 
@@ -30,11 +30,10 @@ export default class BookCard {
     }
 
     #addToDom(card) {
-        console.log(card);
         this.parentElement.appendChild(card);
     }
 
-    
+
     setBackgorundImage(img, card) {
         card.style.backgroundImage = img;
         card.style.backgroundSize = "cover"
@@ -56,7 +55,7 @@ export default class BookCard {
         return deleteBtn;
     }
 
-   
+
     toggleBookReadStatus(book) {
         this.library.toggleBookRead(book.id);
         this.updateReadStatusInDom(book);
@@ -93,7 +92,8 @@ export default class BookCard {
 
         card.addEventListener("click", () => {
             this.detailsPane.setDetails(book);
-            this.detailsPane.togglPane();
+            if (!this.detailsPane.isActive)
+                this.detailsPane.togglPane();
         });
     }
 }
