@@ -1,9 +1,10 @@
 export default class BookCardManager {
 
-    constructor(library, parentElement) {
+    constructor(library, detailsPane, parentElement) {
 
         this.cardList = [];
         this.library = library;
+        this.detailsPane = detailsPane;
         this.parentElement = parentElement || document.querySelector(".books-list");
 
         this.library.booksList.forEach(book => {
@@ -21,35 +22,16 @@ export default class BookCardManager {
         if (img) this.setBackgorundImage(img, card);
 
         card.appendChild(this.createDeleteBtn());
-  
-        const cardDetailsPane = document.querySelector(".book-details-pane");
-        cardDetailsPane.appendChild(this.createDetailsPane(book, title, author, description));
-
-        card.addEventListener("click", () => {
-            cardDetailsPane.classList.contains("active") ?
-                cardDetailsPane.classList.remove("active") :
-                cardDetailsPane.classList.add("active");
-        });
-
+        this.handleCardSelected(card, book);
         return card;
     }
 
     addBookCardToDom(card) {
-        console.log(card)
         this.cardList.push(card)
         this.parentElement.appendChild(card);
     }
 
-    createDetailsPane(book, title, author, description) {
-        const cardDetails = document.createElement("div");
-        cardDetails.classList.add("book-details");
-        cardDetails.appendChild(this.createElement("h3", "book-title", title));
-        cardDetails.appendChild(this.createElement("p", "book-author", author));
-        cardDetails.appendChild(this.createElement("p", "book-desc", description));
-        cardDetails.appendChild(this.createReadSection(book));
-        return cardDetails;
-    }
-
+    
     setBackgorundImage(img, card) {
         card.style.backgroundImage = img;
         card.style.backgroundSize = "cover"
@@ -71,28 +53,13 @@ export default class BookCardManager {
         return deleteBtn;
     }
 
-    createReadSection(book) {
-        const readSection = document.createElement("div");
-        readSection.classList.add("read-status-section");
-
-        let setReadBtn = document.createElement("button");
-        setReadBtn.id = "set-read";
-        setReadBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
-        setReadBtn.addEventListener("click", () => this.toggleReadStatus(book));
-
-        readSection.appendChild(setReadBtn);
-        readSection.appendChild(this.createElement("p", "read-status", book.read ? "✅" : "❌"));
-
-        return readSection;
-    }
-
-
-    toggleReadStatus(book) {
+   
+    toggleBookReadStatus(book) {
         this.library.toggleBookRead(book.id);
-        this.updateReadInDom(book);
+        this.updateReadStatusInDom(book);
     }
 
-    updateReadInDom(book) {
+    updateReadStatusInDom(book) {
         const card = this.parentElement.querySelector(`[data-book-id="${book.id}"]`);
         const statusText = card.querySelector(".read-status");
         statusText.textContent = book.read ? "✅" : "❌";
@@ -116,5 +83,14 @@ export default class BookCardManager {
 
     removeBookFromLibrary(id) {
         this.library.removeBookFromLibrary(id);
+    }
+
+
+    handleCardSelected(card, book) {
+
+        card.addEventListener("click", () => {
+            this.detailsPane.setDetails(book);
+            this.detailsPane.togglPane();
+        });
     }
 }
