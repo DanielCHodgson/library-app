@@ -1,7 +1,11 @@
+import BookCard from "./BookCard.js";
+
 export default class NewBookModal {
 
-  constructor(library) {
+  constructor(library, cardParentElement, bookDetailsPane) {
     this.library = library;
+    this.cardParentElement = cardParentElement;
+    this.bookDetailsPane = bookDetailsPane;
     this.dialog = document.getElementById("new-book-modal");
     this.form = document.getElementById("book-details");
     this.openButton = document.getElementById("add-book");
@@ -33,7 +37,8 @@ export default class NewBookModal {
       return;
 
     this.library.addBookToLibrary(title, author, description, read);
-    card.addCardToDom(this);
+    const bookJustAdded = this.library.booksList[this.library.booksList.length -1];
+    new BookCard(bookJustAdded, this.library, this.bookDetailsPane, this.cardParentElement)
 
     this.form.reset();
     this.close();

@@ -6,9 +6,8 @@ import BookDetilsPane from "./BookDetailsPane.js"
 const bookDetailsPane = new BookDetilsPane(document.querySelector(".book-details-pane"));
 
 const library = new Library();
-const modal = new NewBookModal(library);
+const modal = new NewBookModal(library, document.querySelector(".books-list"), bookDetailsPane);
 
 library.booksList.forEach(book => {
-
-    const card = new BookCard(library, bookDetailsPane, document.querySelector(".books-list"))
+    new BookCard(book, library, bookDetailsPane, document.querySelector(".books-list"))
 });
