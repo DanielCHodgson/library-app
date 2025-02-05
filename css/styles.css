@@ -9,10 +9,16 @@
     font-variation-settings: "wdth" 100;
     background-color: var(--primary-background);
 
+/*
     --primary-background: #213555;
     --secondary-background: #3E5879;
     --complimentary-background-dark: #D8C4B6;
     --complimentary-background-light: #F5EFE7;
+*/
+    --primary-background: #1E201E;
+    --secondary-background: #3C3D37;
+    --complimentary-background-dark: #697565;
+    --complimentary-background-light: #ECDFCC;
 }
 
 body {
@@ -49,6 +55,7 @@ button {
 
 .main h2 {
     padding: 1rem 0.5rem;
+    font-size: 2rem;
 }
 
 .book-details-pane {
@@ -59,7 +66,7 @@ button {
     top: 0;
 
     padding: 2rem;
-    background-color: var(--complimentary-background-dark);
+    background-color: var(--complimentary-background-light);
     transition: all ease 0.4s;
     display: flex;
     align-items: center;
@@ -146,7 +153,6 @@ svg.btn {
     outline: none;
     border-radius: 20px;
     background-color: #e6e6e6;
-    justify-self: spa;
 }
 
 .tabs ul {
@@ -154,19 +160,21 @@ svg.btn {
     display: flex;
     list-style: none;
     gap: 1rem;
-    border-bottom: 2px solid #FFFFFF;
+
+}
+
+.tabs li {
+ cursor: pointer;
 }
 
 
-#add-book {
-    height: 2rem;
-    padding: 0 0.7rem;
-    border-radius: 15px;
+#add-book-btn {
     cursor: pointer;
+    fill: #FFFFFF;
 }
 
-#add-book:hover {
-    opacity: 0.7;
+#add-book-btn:hover {
+    opacity: 0.9;
 }
 
 

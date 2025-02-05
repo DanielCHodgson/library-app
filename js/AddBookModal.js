@@ -8,7 +8,7 @@ export default class AddBookModal {
     this.bookDetailsPane = bookDetailsPane;
     this.dialog = document.getElementById("new-book-modal");
     this.form = document.getElementById("book-details-form");
-    this.openButton = document.getElementById("add-book");
+    this.openButton = document.getElementById("add-book-btn");
     this.closeButton = document.getElementById("modal-close-btn");
     this.submitButton = document.getElementById("book-submit");
     this.readCheckbox = document.getElementById("read");
