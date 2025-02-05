@@ -42,8 +42,7 @@ button {
 
 .main {
     color: #FFFFFF;
-    width: 100%;
-    max-width: 1000px;
+    width: clamp(300px, 1200px, 100%);
     margin: 0 auto;
 }
 

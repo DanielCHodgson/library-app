@@ -76,11 +76,19 @@ export default class Library {
             "url('./res/1984.jpeg')"
         );
         this.addBookToLibrary(
-            "The Handmaid’s Tale ",
+            "The Handmaid’s Tale",
             "Margaret Atwood",
             "In The Handmaid’s Tale, in a dystopian society where women’s rights are stripped away, Offred, a handmaid, struggles to survive under oppressive rule while secretly resisting the totalitarian regime.",
             false,
             "url('./res/Handmaids-tale.jpeg')"
+        );
+
+        this.addBookToLibrary(
+            "Fear and loathing in Las Vegas",
+            "Hunter S. Thompson",
+            "Fear and Loathing in Las Vegas by Hunter S. Thompson follows journalist Raoul Duke and his attorney Dr. Gonzo as they embark on a drug-fueled trip to Las Vegas, exploring the chaos of the American Dream.",
+            false,
+            "url('./res/fear-and-loathing.jpeg')"
         );
     }
 
