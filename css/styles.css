@@ -19,6 +19,7 @@ button {
     cursor: pointer
 }
 
+
 .wrapper {
     position: relative;
     width: 100%;
@@ -48,11 +49,22 @@ button {
 }
 
 .book-details {
-    height: 50%;
+    height: 100%;
     display: grid;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: 1fr auto auto auto 1fr;
     align-items: center;
     gap: 0.5rem;
+}
+
+svg.btn {
+    cursor: pointer;
+    
+}
+
+.hide-panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
 }
 
 
@@ -181,7 +193,7 @@ button {
     scale: 1.005;
 }
 
-.book-card:hover~.book-card:not(:hover) {
+.book-card.unfocussed {
     filter: blur(4px);
 }
 

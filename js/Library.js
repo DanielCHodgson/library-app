@@ -28,7 +28,11 @@ export default class Library {
 
     getBookById(id) {
         return this.booksList.find(book => book.id === id);
-      }
+    }
+
+    getCardById(id) {
+        return this.getBookById(id).card;
+    }
 
     // method for adding dummy data
     addTestBooks() {
@@ -50,5 +54,5 @@ export default class Library {
     }
 
 
-    
+
 }

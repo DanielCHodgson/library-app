@@ -5,9 +5,8 @@ export default class BookCard {
         this.detailsPane = detailsPane;
         this.parentElement = parentElement || document.querySelector(".books-list");
         this.card = this.#createCard(book);
-
-        this.#createCard(book)
-        this.#bindToBook(this.card, book);
+        
+        this.#bindToBook(book);
         this.#addToDom(this.card);
     }
 
@@ -19,14 +18,14 @@ export default class BookCard {
         card.dataset.bookId = id;
         if (img) this.setBackgorundImage(img, card);
 
-        card.appendChild(this.createDeleteBtn());
-        this.handleCardSelected(card, book);
+        card.appendChild(this.#createDeleteBtn());
+        this.bindEvents(card, book);
 
         return card;
     }
 
     #bindToBook(book) {
-        book.card = this;
+        book.card = this.card;
     }
 
     #addToDom(card) {
@@ -40,21 +39,13 @@ export default class BookCard {
         card.style.backgroundPosition = "center"
     }
 
-    createElement(tag, className, textContent) {
-        const element = document.createElement(tag);
-        element.classList.add(className);
-        element.textContent = textContent;
-        return element;
-    }
-
-    createDeleteBtn() {
+    #createDeleteBtn() {
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("card-delete-btn");
         deleteBtn.textContent = "✖";
         deleteBtn.addEventListener("click", (event) => this.deleteCard(event));
         return deleteBtn;
     }
-
 
     toggleBookReadStatus(book) {
         this.library.toggleBookRead(book.id);
@@ -69,7 +60,6 @@ export default class BookCard {
         readBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
     }
 
-
     deleteCard(event) {
         const deletebutton = event.target;
         const cardDiv = deletebutton.parentNode;
@@ -79,6 +69,7 @@ export default class BookCard {
         this.removeBookCardFromDom(id);
     }
 
+
     removeBookCardFromDom(id) {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
@@ -87,6 +78,33 @@ export default class BookCard {
         this.library.removeBookFromLibrary(id);
     }
 
+
+    bindEvents(card, book) {
+        this.handleCardHover(card, book);
+        this.handleCardSelected(card, book)
+    }
+
+    handleCardHover(card, book) {
+        
+        const handleMouseOver = () => {
+            const otherCards = this.library.booksList
+                .filter(otherBook => otherBook.id !== book.id)
+                .map(otherBook => otherBook.card);
+    
+            otherCards.forEach(otherCard => otherCard.classList.add("unfocussed"));
+        };
+    
+        const handleMouseOut = () => {
+            const otherCards = this.library.booksList
+                .filter(otherBook => otherBook.id !== book.id)
+                .map(otherBook => otherBook.card);
+    
+            otherCards.forEach(otherCard => otherCard.classList.remove("unfocussed"));
+        };
+    
+        card.addEventListener("mouseover", handleMouseOver);
+        card.addEventListener("mouseout", handleMouseOut);
+    }
 
     handleCardSelected(card, book) {
 

@@ -36,7 +36,10 @@
             </div>
         </div>
         <div class="book-details-pane">
-            <div class="book-details">
+            <form class="book-details">
+                <div class="hide-panel">
+                    <svg id="close-pane" class="btn" width="2.5rem" height="2.5rem" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.08,4.08L20,12L12.08,19.92L10.67,18.5L16.17,13H2V11H16.17L10.67,5.5L12.08,4.08M20,12V22H22V2H20V12Z" /></svg>
+                </div>
                 <h3 class="book-title"></h3>
                 <div class="book-author"></div>
                 <div class="book-desc"></div>
@@ -44,8 +47,8 @@
                     <button id="set-read"></button>
                     <p class="read-status"></p>
                 </div>
-            </div>
         </div>
+    </div>
     </div>
     <dialog id="new-book-modal">
         <div class="modal-content">
