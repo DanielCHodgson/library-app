@@ -1,20 +1,18 @@
-export default class BookCardManager {
+export default class BookCard {
 
-    constructor(library, detailsPane, parentElement) {
-
-        this.cardList = [];
+    constructor(book, library, detailsPane, parentElement) {
         this.library = library;
         this.detailsPane = detailsPane;
         this.parentElement = parentElement || document.querySelector(".books-list");
+        this.card = this.#createCard(book);
 
-        this.library.booksList.forEach(book => {
-            this.addBookCardToDom(this.createBookCard(book));
-        });
+        this.#createCard(book)
+        this.#bindToBook(this.card, book);
+        this.#addToDom(this.card);
     }
 
-
-    createBookCard(book) {
-        const { id, title, author, description, img } = book;
+    #createCard(book) {
+        const { id, img } = book;
 
         const card = document.createElement("div");
         card.classList.add("book-card");
@@ -23,11 +21,16 @@ export default class BookCardManager {
 
         card.appendChild(this.createDeleteBtn());
         this.handleCardSelected(card, book);
+     
         return card;
     }
 
-    addBookCardToDom(card) {
-        this.cardList.push(card)
+    #bindToBook(book) {
+        book.card = this;
+    }
+
+    #addToDom(card) {
+        console.log(card);
         this.parentElement.appendChild(card);
     }
 

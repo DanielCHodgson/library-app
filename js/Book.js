@@ -7,6 +7,7 @@ export default class Book {
         this.description = description;
         this.read = read;
         this.img = img;
+        this.card= null;
     }
 
     toggleRead() {

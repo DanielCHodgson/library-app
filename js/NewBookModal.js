@@ -1,8 +1,7 @@
 export default class NewBookModal {
 
-  constructor(library, bookCardManager) {
+  constructor(library) {
     this.library = library;
-    this.bookCardManager = bookCardManager;
     this.dialog = document.getElementById("new-book-modal");
     this.form = document.getElementById("book-details");
     this.openButton = document.getElementById("add-book");
@@ -22,10 +21,9 @@ export default class NewBookModal {
     this.dialog.close();
   }
 
-  submit(event) {
+  submit(event, card) {
     event.preventDefault();
 
-    const books = this.library.booksList;
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const description = document.getElementById('description').value;
@@ -35,8 +33,7 @@ export default class NewBookModal {
       return;
 
     this.library.addBookToLibrary(title, author, description, read);
-    const card = this.bookCardManager.createBookCard(books[books.length - 1], document.querySelector(".books-list"));
-    this.bookCardManager.addBookCardToDom(card);
+    card.addCardToDom(this);
 
     this.form.reset();
     this.close();
@@ -67,7 +64,6 @@ export default class NewBookModal {
   }
 
   bindEvents() {
-
     this.openButton.addEventListener("click", () => this.open());
     this.closeButton.addEventListener("click", () => this.close());
     this.submitButton.addEventListener("click", (event) => this.submit(event));
