@@ -26,19 +26,18 @@ export default class NewBookModal {
     event.preventDefault();
 
     const books = this.library.booksList;
-
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
     const description = document.getElementById('description').value;
     const read = this.readCheckbox.checked;
 
-
-    if (!this.isValidEntry(title, author, description)) {
+    if (!this.isValidEntry(title, author, description))
       return;
-    }
 
     this.library.addBookToLibrary(title, author, description, read);
-    this.bookCardManager.addBookCardToDom(books[books.length - 1], document.querySelector(".books-list"));
+    const card = this.bookCardManager.createBookCard(books[books.length - 1], document.querySelector(".books-list"));
+    this.bookCardManager.addBookCardToDom(card);
+
     this.form.reset();
     this.close();
   }
@@ -56,12 +55,12 @@ export default class NewBookModal {
     if (!description) errors.push("Enter a description.");
 
     if (author && /\d/.test(author)) {
-        errors.push("The author name cannot contain numbers.");
+      errors.push("The author name cannot contain numbers.");
     }
 
     if (errors.length > 0) {
-        alert(errors.join("\n"));
-        return false;
+      alert(errors.join("\n"));
+      return false;
     }
 
     return true;

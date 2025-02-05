@@ -1,15 +1,18 @@
 export default class BookCardManager {
 
     constructor(library, parentElement) {
+
+        this.cardList = [];
         this.library = library;
         this.parentElement = parentElement || document.querySelector(".books-list");
 
         this.library.booksList.forEach(book => {
-            this.addBookCardToDom(book);
+            this.addBookCardToDom(this.createBookCard(book));
         });
     }
 
-    addBookCardToDom(book) {
+
+    createBookCard(book) {
         const { id, title, author, description, img } = book;
 
         const card = document.createElement("div");
@@ -18,32 +21,24 @@ export default class BookCardManager {
         if (img) this.setBackgorundImage(img, card);
 
         card.appendChild(this.createDeleteBtn());
-        /*
-        card.appendChild(this.createElement("h3", "book-title", title));
-        card.appendChild(this.createElement("p", "book-author", author));
-        card.appendChild(this.createElement("p", "book-desc", description));
-        card.appendChild(this.createReadSection(book));
-        */
-
-
-
+  
         const cardDetailsPane = document.querySelector(".book-details-pane");
         cardDetailsPane.appendChild(this.createDetailsPane(book, title, author, description));
 
         card.addEventListener("click", () => {
-
             cardDetailsPane.classList.contains("active") ?
                 cardDetailsPane.classList.remove("active") :
                 cardDetailsPane.classList.add("active");
         });
 
-        this.createDeleteBtn
-
-
-
-        this.parentElement.appendChild(card);
+        return card;
     }
 
+    addBookCardToDom(card) {
+        console.log(card)
+        this.cardList.push(card)
+        this.parentElement.appendChild(card);
+    }
 
     createDetailsPane(book, title, author, description) {
         const cardDetails = document.createElement("div");
