@@ -8,8 +8,8 @@ export default class Library {
         this.addTestBooks();
     }
 
-    addBookToLibrary(title, author, description, read) {
-        this.booksList.push(new Book(this.availableId, title, author, description, read))
+    addBookToLibrary(title, author, description, read, img) {
+        this.booksList.push(new Book(this.availableId, title, author, description, read, img))
         this.availableId += 1;
     }
 
@@ -36,7 +36,19 @@ export default class Library {
             "The Lord of the Rings",
             "J.R.R Tolkien",
             "An epic adventure split across three novels. Follows the fellowship as they quest across Middle Earth to destroy the one ring.",
-            false
+            false,
+            "url('./res/LotR-cover.jpg')"
+        );
+
+        this.addBookToLibrary(
+            "Crime and Punishment",
+            "Fyodor Dostoevsky",
+            "This gripping novel explores morality, guilt, and redemption through the story of a young man who commits murder.",
+            false,
+            "url('./res/Crime-and-punishment-cover.jpg')"
         );
     }
+
+
+    
 }

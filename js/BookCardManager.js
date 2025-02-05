@@ -10,19 +10,55 @@ export default class BookCardManager {
     }
 
     addBookCardToDom(book) {
-        const { id, title, author, description } = book;
+        const { id, title, author, description, img } = book;
 
         const card = document.createElement("div");
         card.classList.add("book-card");
         card.dataset.bookId = id;
+        if (img) this.setBackgorundImage(img, card);
 
         card.appendChild(this.createDeleteBtn());
+        /*
         card.appendChild(this.createElement("h3", "book-title", title));
         card.appendChild(this.createElement("p", "book-author", author));
         card.appendChild(this.createElement("p", "book-desc", description));
         card.appendChild(this.createReadSection(book));
+        */
+
+
+
+        const cardDetailsPane = document.querySelector(".book-details-pane");
+        cardDetailsPane.appendChild(this.createDetailsPane(book, title, author, description));
+
+        card.addEventListener("click", () => {
+
+            cardDetailsPane.classList.contains("active") ?
+                cardDetailsPane.classList.remove("active") :
+                cardDetailsPane.classList.add("active");
+        });
+
+        this.createDeleteBtn
+
+
 
         this.parentElement.appendChild(card);
+    }
+
+
+    createDetailsPane(book, title, author, description) {
+        const cardDetails = document.createElement("div");
+        cardDetails.classList.add("book-details");
+        cardDetails.appendChild(this.createElement("h3", "book-title", title));
+        cardDetails.appendChild(this.createElement("p", "book-author", author));
+        cardDetails.appendChild(this.createElement("p", "book-desc", description));
+        cardDetails.appendChild(this.createReadSection(book));
+        return cardDetails;
+    }
+
+    setBackgorundImage(img, card) {
+        card.style.backgroundImage = img;
+        card.style.backgroundSize = "cover"
+        card.style.backgroundPosition = "center"
     }
 
     createElement(tag, className, textContent) {

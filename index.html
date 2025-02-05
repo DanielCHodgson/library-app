@@ -21,8 +21,10 @@
                     <li>Podcasts</li>
                 </ul>
             </div>
-            <input id="book-search" type="search" placeholder="Genre, author, or book name">
-            <div class="search"></div>
+
+            <div class="search">
+                <input id="book-search" type="search" placeholder="Genre, author, or book name">
+            </div>
         </div>
         <div class="main">
             <div class="main-header">
@@ -33,6 +35,9 @@
 
             </div>
         </div>
+        <div class="book-details-pane">
+
+        </div>
     </div>
     <dialog id="new-book-modal">
         <div class="modal-content">
@@ -40,7 +45,7 @@
                 <p>Enter the book details</p>
                 <button id="modal-close-btn">X</button>
             </div>
-            <form id="book-details">
+            <form id="book-details-form">
                 <fieldset>
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" maxlength="30" required placeholder="Enter the title">
