@@ -27,12 +27,9 @@ export default class BookDetailsPane {
 
 
     #setBookDetails(book) {
-
         this.currentBook = book;
 
         const title = document.querySelector(".book-title");
-
-        console.log(title)
         title.textContent = this.currentBook.title;
 
         const author = document.querySelector(".book-author");
