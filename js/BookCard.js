@@ -97,7 +97,11 @@ export default class BookCard {
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("card-delete-btn");
         deleteBtn.textContent = "✖";
-        deleteBtn.addEventListener("click", (event) => this.deleteCard(event));
+        deleteBtn.addEventListener("click", (event) => {
+            this.deleteCard(event);
+
+
+        });
         return deleteBtn;
     }
 
@@ -105,6 +109,7 @@ export default class BookCard {
         const id = this.card.dataset.bookId;
         this.library.removeBookFromLibrary(id);
         this.removeFromDom(id);
+        this.#toggleOtherCardsFocus();
         event.stopPropagation();
     }
 
@@ -117,22 +122,26 @@ export default class BookCard {
         this.handleCardSelected(card)
     }
 
+    #toggleOtherCardsFocus() {
+        const otherCards = this.library.booksList
+            .filter(otherBook => otherBook.id !== this.book.id)
+            .map(otherBook => otherBook.card);
+        otherCards.forEach(otherCard => {
+
+            otherCard.classList.contains("unfocussed") ?
+                otherCard.classList.remove("unfocussed") :
+                otherCard.classList.add("unfocussed");
+        });
+    }
+
     handleCardHover(card) {
 
         const handleMouseOver = () => {
-            const otherCards = this.library.booksList
-                .filter(otherBook => otherBook.id !== this.book.id)
-                .map(otherBook => otherBook.card);
-
-            otherCards.forEach(otherCard => otherCard.classList.add("unfocussed"));
+            this.#toggleOtherCardsFocus();
         };
 
         const handleMouseOut = () => {
-            const otherCards = this.library.booksList
-                .filter(otherBook => otherBook.id !== this.book.id)
-                .map(otherBook => otherBook.card);
-
-            otherCards.forEach(otherCard => otherCard.classList.remove("unfocussed"));
+            this.#toggleOtherCardsFocus();
         };
 
         card.addEventListener("mouseover", handleMouseOver);
