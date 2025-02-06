@@ -233,10 +233,14 @@ svg.btn {
     justify-self: flex-end;
     display: grid;
     place-items: center;
-
+    outline: none;
 }
-.card-delete-btn, .read-icon, .unread-icon, #modal-close-btn {
+.card-delete-btn, .unread-icon, #modal-close-btn {
     opacity: 0.7;
+}
+
+.read-icon {
+    fill: #43af34;
 }
 
 .card-delete-btn:hover, .read-icon:hover, .unread-icon:hover, #modal-close-btn {
