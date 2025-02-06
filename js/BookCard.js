@@ -24,7 +24,7 @@ export default class BookCard {
         const icons = document.createElement("div");
         icons.classList.add("card-icons");
 
-        const readIcon= this.#createReadIcon();
+        const readIcon = this.#createReadIcon();
         icons.appendChild(readIcon);
 
         icons.appendChild(this.#createDeleteBtn());
@@ -54,13 +54,25 @@ export default class BookCard {
     }
 
     setBackgorundImage(img, card) {
-        card.style.backgroundImage = img;
+
+        const bg = this.#wrapInUrl(img)
+        card.style.backgroundImage = bg;
         card.style.backgroundSize = "cover"
         card.style.backgroundPosition = "center"
     }
 
+    #wrapInUrl(value) {
+
+        const regex = /^url\(['"][^'"]+['"]\)$/i;
+        if (regex.test(value)) {
+            return value;
+        } else {
+            return `url('${value}')`;
+        }
+    }
+
     toggleReadIcon() {
-        const icon = this.card.querySelector(".card-icons"); 
+        const icon = this.card.querySelector(".card-icons");
         icon.firstChild.replaceWith(this.#createReadIcon(this.book));
     }
 
@@ -78,7 +90,7 @@ export default class BookCard {
 
     toggleRead() {
         this.book.toggleRead();
-        this.toggleReadIcon(); 
+        this.toggleReadIcon();
     }
 
     #createDeleteBtn() {

@@ -30,13 +30,26 @@ export default class AddBookModal {
     const bookData = this.getBookData();
     if (!this.isValidEntry(bookData)) return;
 
-    this.library.addBookToLibrary(bookData);
+    let imgUrl = "";
+    if (bookData.img && this.isValidImageUrl(bookData.img)) imgUrl = bookData.img;
+
+    this.library.addBookToLibrary(bookData.title, bookData.author, bookData.description, bookData.read, bookData.img);
 
     const newBook = this.library.booksList[this.library.booksList.length - 1]
-    new BookCard(newBook, this.library, this.bookDetailsPane, this.cardParentElement);
+    new BookCard(newBook, this.library, this.bookDetailsPane, this.cardParentElement, imgUrl);
 
     this.form.reset();
     this.close();
+  }
+
+  isValidImageUrl(url) {
+    const regex = /\.(jpg|jpeg|png|gif|bmp)$/i;
+    if (!regex.test(url)) {
+      alert('Please enter a valid image URL ending with .jpg, .jpeg, .png, .gif, or .bmp');
+      return false;
+    }
+
+    return true;
   }
 
   getBookData() {
@@ -44,6 +57,7 @@ export default class AddBookModal {
       title: document.getElementById('title').value.trim(),
       author: document.getElementById('author').value.trim(),
       description: document.getElementById('description').value.trim(),
+      img: document.getElementById('imgUrl').value.trim(),
       read: this.readCheckbox.checked,
     };
   }

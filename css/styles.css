@@ -186,7 +186,7 @@ svg.btn {
 }
 
 .book-card {
-    width: 240px;
+    width: 260px;
     height: 340px;
     padding: 0.5rem 1.5rem 0.5rem 1.5rem;
     border-radius: 10px;
@@ -248,8 +248,8 @@ svg.btn {
 }
 
 #new-book-modal {
-    width: 300px;
-    height: 440px;
+    width: 330px;
+    height: 490px;
     background-color:#3c3d37f6;
     color: #FFFFFF;
     padding: 0;
