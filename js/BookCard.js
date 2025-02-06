@@ -75,7 +75,7 @@ export default class BookCard {
     }
 
     toggleRead() {
-        this.book.read = !this.book.read;
+        this.book.toggleRead();
         this.toggleReadIcon(); 
     }
 
@@ -87,38 +87,16 @@ export default class BookCard {
         return deleteBtn;
     }
 
-    /*
-
-    toggleBookReadStatus(book) {
-        this.library.toggleBookRead(book.id);
-        this.updateReadStatusInDom(book);
-    }
-
-    updateReadStatusInDom(book) {
-        const card = this.parentElement.querySelector(`[data-book-id="${book.id}"]`);
-        const statusText = card.querySelector(".read-status");
-        statusText.textContent = book.read ? "✅" : "❌";
-        const readBtn = card.querySelector("#set-read");
-        readBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
-    }
-
-    */
-
     deleteCard(event) {
         const id = this.card.dataset.bookId;
-        this.removeBookFromLibrary(id);
-        this.removeBookCardFromDom(id);
+        this.library.removeBookFromLibrary(id);
+        this.removeFromDom(id);
         event.stopPropagation();
     }
 
-    removeBookCardFromDom(id) {
+    removeFromDom(id) {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
-
-    removeBookFromLibrary(id) {
-        this.library.removeBookFromLibrary(id);
-    }
-
 
     bindEvents(card) {
         this.handleCardHover(card,);

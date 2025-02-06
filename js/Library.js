@@ -21,11 +21,6 @@ export default class Library {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
 
-    toggleBookRead(id) {
-        const book = this.getBookById(id);
-        book.toggleRead();
-    }
-
     getBookById(id) {
         return this.booksList.find(book => book.id === id);
     }

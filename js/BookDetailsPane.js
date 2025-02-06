@@ -5,16 +5,12 @@ export default class BookDetailsPane {
         this.containerElement = containerElement;
         this.isActive = false;
         this.currentBook = null;
-
         this.#bindEvents();
     }
 
     togglPane() {
         this.containerElement.classList.toggle("active");
-
-        if (this.isActive) {
-            this.currentBook = null;
-        }
+        if (this.isActive) this.currentBook = null;
         this.isActive = !this.isActive;
     }
 
@@ -22,7 +18,6 @@ export default class BookDetailsPane {
     setDetails(book) {
         if (!this.containerElement) return;
         this.#setBookDetails(book);
-        this.#setReadSection(book);
     }
 
 
@@ -39,30 +34,11 @@ export default class BookDetailsPane {
         desc.textContent = this.currentBook.description;
     }
 
-
-    #setReadSection(book) {
-        const setReadBtn = document.getElementById("set-read");
-        setReadBtn.textContent = book.read ? "Mark Unread" : "Mark Read";
-        setReadBtn.addEventListener("click", () => this.toggleBookReadStatus(book));
-
-        const readStatus = document.querySelector(".read-status")
-        readStatus.textContent = book.read ? "✅" : "❌";
-    }
-
     #bindEvents() {
 
         const closeButton = document.getElementById("close-pane");
         closeButton.addEventListener("click", () => {
             this.togglPane();
         });
-
-
     }
-
-    #styleUnselectedCards(cardsList) {
-        //this.cardList.find(card => card !== currentCard).forEach(card=> 
-        //card.classList.add("") )
-    }
-
-
 }
