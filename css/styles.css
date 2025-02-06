@@ -210,6 +210,16 @@ svg.btn {
     filter: blur(4px);
 }
 
+
+.card-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    fill: #FFFFFF;
+}
+
+
 .card-delete-btn {
     width: 1.3rem;
     height: 1.3rem;
@@ -223,12 +233,13 @@ svg.btn {
     justify-self: flex-end;
     display: grid;
     place-items: center;
-    cursor: pointer;
+
+}
+.card-delete-btn, .read-icon, .unread-icon {
     opacity: 0.7;
 }
 
-
-button:hover {
+.card-delete-btn:hover, .read-icon:hover, .unread-icon:hover {
     opacity: 1;
 }
 
