@@ -19,6 +19,9 @@
     --secondary-background: #3C3D37;
     --complimentary-background-dark: #697565;
     --complimentary-background-light: #ECDFCC;
+
+    --plain-white: #FFFFFF;
+    --marked-read: #43af34;
 }
 
 body {
@@ -41,7 +44,7 @@ button {
 
 
 .main {
-    color: #FFFFFF;
+    color: var(--plain-white);
     width: clamp(300px, 1200px, 100%);
     margin: 0 auto;
 }
@@ -136,7 +139,7 @@ svg.btn {
 }
 
 .header {
-    color: #FFFFFF;
+    color: var(--plain-white);
     padding: 0.5rem;
     display: flex;
     justify-content: space-around;
@@ -169,7 +172,7 @@ svg.btn {
 
 #add-book-btn {
     cursor: pointer;
-    fill: #FFFFFF;
+    fill: var(--plain-white);
 }
 
 #add-book-btn:hover {
@@ -216,7 +219,7 @@ svg.btn {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    fill: #FFFFFF;
+    fill: var(--plain-white);
 }
 
 
@@ -226,7 +229,7 @@ svg.btn {
     padding: 0;
     border: none;
     border-radius: 5px;
-    color: white;
+    color: var(--plain-white);
     background-color: #b92525;
     font-size: 0.7rem;
     text-align: center;
@@ -239,8 +242,19 @@ svg.btn {
     opacity: 0.7;
 }
 
+.read-section {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.read-section p {
+    font-size: 1.4rem;
+}
+
 .read-icon {
-    fill: #43af34;
+    fill: var(--marked-read);
 }
 
 .card-delete-btn:hover, .read-icon:hover, .unread-icon:hover, #modal-close-btn {
@@ -251,7 +265,7 @@ svg.btn {
     width: 330px;
     height: 490px;
     background-color:#3c3d37f6;
-    color: #FFFFFF;
+    color: var(--plain-white);
     padding: 0;
     margin: auto;
     margin-top: 20vh;
@@ -348,3 +362,64 @@ input[type="checkbox"]:disabled {
     color: var(--form-control-disabled);
     cursor: not-allowed;
 }
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--marked-read);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px var(--marked-read);
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
