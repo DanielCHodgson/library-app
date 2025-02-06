@@ -220,7 +220,7 @@ svg.btn {
 }
 
 
-.card-delete-btn {
+.card-delete-btn, #modal-close-btn {
     width: 1.3rem;
     height: 1.3rem;
     padding: 0;
@@ -235,28 +235,42 @@ svg.btn {
     place-items: center;
 
 }
-.card-delete-btn, .read-icon, .unread-icon {
+.card-delete-btn, .read-icon, .unread-icon, #modal-close-btn {
     opacity: 0.7;
 }
 
-.card-delete-btn:hover, .read-icon:hover, .unread-icon:hover {
+.card-delete-btn:hover, .read-icon:hover, .unread-icon:hover, #modal-close-btn {
     opacity: 1;
 }
 
 #new-book-modal {
     width: 300px;
+    height: 440px;
+    background-color:#3c3d37f6;
+    color: #FFFFFF;
+    padding: 0;
     margin: auto;
-    padding: 1.5rem;
     margin-top: 20vh;
     border: none;
     border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 1);
+    overflow: hidden;
+}
+
+#new-book-modal input:not(input[type="checkbox"]), textarea {
+    border: none;
+    outline: none;
+    color: #1E201E;
+    border-radius: 5px;
+    padding: 0.2rem 0.3rem;
+
 }
 
 .modal-content {
+    padding: 1.5rem;
     display: grid;
     grid-template-rows: auto auto auto;
-    gap: 1rem;
+    gap: 0.4rem;
 }
 
 .modal-header {
@@ -273,12 +287,6 @@ svg.btn {
     border: none;
     display: flex;
     flex-direction: column;
-}
-
-#modal-close-btn {
-    width: 2rem;
-    height: 2rem;
-    justify-self: end;
 }
 
 
