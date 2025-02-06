@@ -30,6 +30,17 @@ export default class BookCard {
         icons.appendChild(this.#createDeleteBtn());
         card.appendChild(icons);
 
+        if(img === "") {
+            const altTextArea = document.createElement("div");
+            altTextArea.classList.add("card-alt-text");
+
+            const altText = document.createElement("p");
+            altText.textContent = this.book.title;
+
+            altTextArea.appendChild(altText);
+            card.appendChild(altTextArea)
+        }
+
         this.bindEvents(card);
         return card;
     }

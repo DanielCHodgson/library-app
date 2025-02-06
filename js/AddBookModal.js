@@ -31,7 +31,14 @@ export default class AddBookModal {
     if (!this.isValidEntry(bookData)) return;
 
     let imgUrl = "";
-    if (bookData.img && this.isValidImageUrl(bookData.img)) imgUrl = bookData.img;
+
+    if (bookData.img) {
+      if (this.isValidImageUrl(bookData.img)) {
+        imgUrl = bookData.img;
+      } else {
+        return;
+      }
+    }
 
     this.library.addBookToLibrary(bookData.title, bookData.author, bookData.description, bookData.read, bookData.img);
 
