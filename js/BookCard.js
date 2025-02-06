@@ -5,14 +5,16 @@ export default class BookCard {
         this.library = library;
         this.detailsPane = detailsPane;
         this.parentElement = parentElement || document.querySelector(".books-list");
-        this.card = this.#createCard(book);
+        this.card = this.#createCard();
 
         this.#bindToBook(book);
         this.#addToDom(this.card);
     }
 
     #createCard() {
-        const { id, img } = this.book;
+
+        const id = this.book.id;
+        const img = this.book.img;
 
         const card = document.createElement("div");
         card.classList.add("book-card");
@@ -28,7 +30,7 @@ export default class BookCard {
         icons.appendChild(this.#createDeleteBtn());
         card.appendChild(icons);
 
-        this.bindEvents(card,);
+        this.bindEvents(card);
         return card;
     }
 

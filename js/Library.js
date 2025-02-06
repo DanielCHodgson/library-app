@@ -5,7 +5,7 @@ export default class Library {
     constructor() {
         this.booksList = [];
         this.availableId = 1;
-        this.addTestBooks();
+        this.#addTestBooks();
     }
 
     addBookToLibrary(title, author, description, read, img) {
@@ -17,20 +17,12 @@ export default class Library {
         this.booksList = this.booksList.filter(book => book.id !== id);
     }
 
-    removeBookCardFromDom(id) {
-        document.querySelector(`[data-book-id="${id}"]`)?.remove();
-    }
-
     getBookById(id) {
         return this.booksList.find(book => book.id === id);
     }
 
-    getCardById(id) {
-        return this.getBookById(id).card;
-    }
-
     // method for adding dummy data
-    addTestBooks() {
+    #addTestBooks() {
         this.addBookToLibrary(
             "The Lord of the Rings",
             "J.R.R Tolkien",
@@ -86,7 +78,4 @@ export default class Library {
             "url('./res/fear-and-loathing.jpeg')"
         );
     }
-
-
-
 }

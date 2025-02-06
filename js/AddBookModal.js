@@ -30,8 +30,10 @@ export default class AddBookModal {
     const bookData = this.getBookData();
     if (!this.isValidEntry(bookData)) return;
 
-    const newBook = this.library.addBookToLibrary(bookData);
-    this.addBookCard(newBook);
+    this.library.addBookToLibrary(bookData);
+
+    const newBook = this.library.booksList[this.library.booksList.length - 1]
+    new BookCard(newBook, this.library, this.bookDetailsPane, this.cardParentElement);
 
     this.form.reset();
     this.close();
@@ -64,10 +66,6 @@ export default class AddBookModal {
   showErrorMessages(errors) {
     const errorMessage = errors.join("\n");
     alert(errorMessage);
-  }
-
-  addBookCard(book) {
-    new BookCard(book, this.library, this.bookDetailsPane, this.cardParentElement);
   }
 
   bindEvents() {
