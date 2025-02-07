@@ -84,6 +84,7 @@ export default class AddBookModal {
     return true;
   }
 
+  
   showErrorMessages(errors) {
     const errorMessage = errors.join("\n");
     alert(errorMessage);

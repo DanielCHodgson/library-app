@@ -195,6 +195,26 @@ svg.btn {
     justify-items: center;
 }
 
+.dummy-card {
+    width: 260px;
+    height: 340px;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    background-color: #ffffff17;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: grid;
+    gap: 0.5rem;
+    transition: border 0.2s ease;
+    cursor: pointer;
+    opacity: 0.4;
+    place-items: center;
+    grid-column: span 1;
+}
+
+.dummy-card:hover {
+    opacity: 1;
+}
+
 .book-card {
     width: 260px;
     height: 340px;
