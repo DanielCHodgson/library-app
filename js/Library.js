@@ -77,7 +77,7 @@ export default class Library {
             "Margaret Atwood",
             "In The Handmaid’s Tale, in a dystopian society where women’s rights are stripped away, Offred, a handmaid, struggles to survive under oppressive rule while secretly resisting the totalitarian regime.",
             false,
-            "url('./res/Handmaids-tale.jpeg')"
+            "url('./res/HandmaidsTale.jpeg')"
         );
 
         this.addBookToLibrary(
