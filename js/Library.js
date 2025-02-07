@@ -6,6 +6,7 @@ export default class Library {
         this.booksList = [];
         this.availableId = 1;
         this.#addTestBooks();
+        this.dummyCard = document.querySelector(".dummy-card");
     }
 
     addBookToLibrary(title, author, description, read, img) {
@@ -23,11 +24,10 @@ export default class Library {
 
     moveLastItem() {
         const gridContainer = document.querySelector('.books-list');
-        const dummyCard = gridContainer.querySelector(".dummy-card");
-
-        if (dummyCard) {
-            dummyCard.remove()
-            gridContainer.appendChild(dummyCard);
+         
+        if (this.dummyCard) {
+            this.dummyCard.remove()
+            gridContainer.appendChild(this.dummyCard);
         }
     }
 

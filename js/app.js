@@ -12,3 +12,5 @@ const modal = new AddBookModal(library, document.querySelector(".books-list"), b
 library.booksList.forEach(book => {
     new BookCard(book, library, bookDetailsPane, document.querySelector(".books-list"))
 });
+
+library.dummyCard.addEventListener("click", () => modal.open());
