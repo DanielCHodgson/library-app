@@ -113,6 +113,7 @@ export default class BookCard {
         this.library.removeBookFromLibrary(id);
         this.removeFromDom(id);
         this.#toggleOtherCardsFocus();
+        if(this.detailsPane.isActive) this.detailsPane.togglePane();
         event.stopPropagation();
     }
 
