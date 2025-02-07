@@ -178,6 +178,7 @@ export default class BookCard {
     
         readIconContainer.addEventListener("click", (event) => {
             this.toggleRead();
+            this.detailsPane.toggleReadStatus();
             this.isClickOnReadIcon = true;
             event.stopPropagation();
         });

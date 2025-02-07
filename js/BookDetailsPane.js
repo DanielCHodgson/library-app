@@ -18,10 +18,10 @@ export default class BookDetailsPane {
     setDetails(book) {
         if (!this.containerElement) return;
         this.#setBookDetails(book);
-        this.#setToggleStatus();
+        this.setToggleStatus();
     }
 
-    #setToggleStatus() {
+    setToggleStatus() {
         const toggle = document.querySelector(".book-details-pane input");
         this.currentBook.read ? toggle.checked = true : toggle.checked = false;
     }
@@ -47,6 +47,6 @@ export default class BookDetailsPane {
         closeButton.addEventListener("click", () => this.togglePane());
 
         const toggle = this.containerElement.querySelector(".switch input");
-        toggle.addEventListener("click", () => this.currentBook.card.toggleRead());
+        toggle.addEventListener("click", () => this.currentCard.toggleRead());
     }
 }
