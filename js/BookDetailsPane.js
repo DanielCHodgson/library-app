@@ -5,6 +5,7 @@ export default class BookDetailsPane {
         this.containerElement = containerElement;
         this.isActive = false;
         this.currentBook = null;
+        this.currentCard = null;
         this.#bindEvents();
     }
 
@@ -18,11 +19,18 @@ export default class BookDetailsPane {
     setDetails(book) {
         if (!this.containerElement) return;
         this.#setBookDetails(book);
+        this.#setToggleStatus();
+    }
+
+    #setToggleStatus() {
+        const toggle = document.querySelector(".book-details-pane input");
+        this.currentBook.read ? toggle.checked = true : toggle.checked = false;
     }
 
 
     #setBookDetails(book) {
         this.currentBook = book;
+        this.currentCard = book.card;
 
         const title = document.querySelector(".book-title");
         title.textContent = this.currentBook.title;
@@ -37,8 +45,9 @@ export default class BookDetailsPane {
     #bindEvents() {
 
         const closeButton = document.getElementById("close-pane");
-        closeButton.addEventListener("click", () => {
-            this.togglPane();
-        });
+        closeButton.addEventListener("click", () => this.togglPane());
+
+        const toggle = this.containerElement.querySelector(".switch input");
+        toggle.addEventListener("click", () => this.currentBook.card.toggleRead());
     }
 }

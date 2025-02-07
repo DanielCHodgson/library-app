@@ -5,10 +5,10 @@ export default class BookCard {
         this.library = library;
         this.detailsPane = detailsPane;
         this.parentElement = parentElement || document.querySelector(".books-list");
-        this.card = this.#createCard();
+        this.cardHtml = this.#createCard();
 
         this.#bindToBook(book);
-        this.#addToDom(this.card);
+        this.#addToDom(this.cardHtml);
     }
 
     #createCard() {
@@ -57,7 +57,7 @@ export default class BookCard {
     }
 
     #bindToBook() {
-        this.book.card = this.card;
+        this.book.card = this;
     }
 
     #addToDom(card) {
@@ -83,7 +83,7 @@ export default class BookCard {
     }
 
     toggleReadIcon() {
-        const icon = this.card.querySelector(".card-icons");
+        const icon = this.cardHtml.querySelector(".card-icons");
         icon.firstChild.replaceWith(this.#createReadIcon(this.book));
     }
 
@@ -100,6 +100,8 @@ export default class BookCard {
     }
 
     toggleRead() {
+        console.log("fsdf")
+        console.log(this.book)
         this.book.toggleRead();
         this.toggleReadIcon();
     }
@@ -117,7 +119,7 @@ export default class BookCard {
     }
 
     deleteCard(event) {
-        const id = this.card.dataset.bookId;
+        const id = this.cardHtml.dataset.bookId;
         this.library.removeBookFromLibrary(id);
         this.removeFromDom(id);
         this.#toggleOtherCardsFocus();
@@ -136,7 +138,7 @@ export default class BookCard {
     #toggleOtherCardsFocus() {
         const otherCards = this.library.booksList
             .filter(otherBook => otherBook.id !== this.book.id)
-            .map(otherBook => otherBook.card);
+            .map(otherBook => otherBook.card.cardHtml);
         otherCards.forEach(otherCard => {
 
             otherCard.classList.contains("unfocussed") ?
