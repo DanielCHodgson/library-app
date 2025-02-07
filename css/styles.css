@@ -179,10 +179,11 @@ svg.btn {
 #add-book-btn {
     cursor: pointer;
     fill: var(--plain-white);
+    opacity: 0.9;
 }
 
 #add-book-btn:hover {
-    opacity: 0.9;
+    opacity: 1;
 }
 
 
