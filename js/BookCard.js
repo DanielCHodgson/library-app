@@ -119,12 +119,6 @@ export default class BookCard {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
 
-    bindEvents() {
-        this.handleCardHover();
-        this.handleCardSelected();
-        this.handleDeleteBtnClick();
-        this.handleReadIconClick();
-    }
 
     #toggleOtherCardsFocus() {
         const otherCards = this.library.booksList
@@ -138,38 +132,57 @@ export default class BookCard {
         });
     }
 
-    handleCardHover() {
-        const handleMouseOver = () => {
-            this.#toggleOtherCardsFocus();
-        };
 
-        const handleMouseOut = () => {
-            this.#toggleOtherCardsFocus();
-        };
-
-        this.cardHtml.addEventListener("mouseover", handleMouseOver);
-        this.cardHtml.addEventListener("mouseout", handleMouseOut);
+    bindEvents() {
+        this.handleCardHover();
+        this.handleCardSelected();
+        this.handleDeleteBtnClick();
+        this.handleReadIconMouseEvents();
     }
-
+    
+    handleCardHover() {
+        const handleMouseEnter = () => {
+            if (this.isClickOnReadIcon) return;
+            this.#toggleOtherCardsFocus();
+        };
+    
+        const handleMouseLeave = () => {
+            if (this.isClickOnReadIcon) return; 
+            this.#toggleOtherCardsFocus();
+        };
+    
+        this.cardHtml.addEventListener("mouseenter", handleMouseEnter);
+        this.cardHtml.addEventListener("mouseleave", handleMouseLeave);
+    }
+    
     handleCardSelected() {
-
         this.cardHtml.addEventListener("click", () => {
+
             this.detailsPane.setDetails(this.book);
+
             if (!this.detailsPane.isActive)
-                this.detailsPane.togglPane();
+                this.detailsPane.togglePane();
         });
     }
-
+    
     handleDeleteBtnClick() {
         const deleteBtn = this.cardHtml.querySelector("button");
         deleteBtn.addEventListener("click", (event) => this.deleteCard(event));
     }
-
-    handleReadIconClick() {
-        const readIconContainer = this.cardHtml.querySelector(".read-icon-container")
+    
+    handleReadIconMouseEvents() {
+        const readIconContainer = this.cardHtml.querySelector(".read-icon-container");
+    
+        this.isClickOnReadIcon = false;
+    
         readIconContainer.addEventListener("click", (event) => {
             this.toggleRead();
+            this.isClickOnReadIcon = true;
             event.stopPropagation();
+        });
+    
+        readIconContainer.addEventListener("mouseleave", () => {
+            this.isClickOnReadIcon = false;
         });
     }
 }

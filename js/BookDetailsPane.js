@@ -9,12 +9,11 @@ export default class BookDetailsPane {
         this.#bindEvents();
     }
 
-    togglPane() {
+    togglePane() {
         this.containerElement.classList.toggle("active");
         if (this.isActive) this.currentBook = null;
         this.isActive = !this.isActive;
     }
-
 
     setDetails(book) {
         if (!this.containerElement) return;
@@ -45,7 +44,7 @@ export default class BookDetailsPane {
     #bindEvents() {
 
         const closeButton = document.getElementById("close-pane");
-        closeButton.addEventListener("click", () => this.togglPane());
+        closeButton.addEventListener("click", () => this.togglePane());
 
         const toggle = this.containerElement.querySelector(".switch input");
         toggle.addEventListener("click", () => this.currentBook.card.toggleRead());
