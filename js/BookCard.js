@@ -63,6 +63,7 @@ export default class BookCard {
 
     #addToDom(card) {
         this.parentElement.appendChild(card);
+        this.library.moveLastItem();
     }
 
     setBackgorundImage(img, card) {

@@ -44,7 +44,6 @@ export default class AddBookModal {
 
     const newBook = this.library.booksList[this.library.booksList.length - 1]
     new BookCard(newBook, this.library, this.bookDetailsPane, this.cardParentElement, imgUrl);
-
     this.form.reset();
     this.close();
   }

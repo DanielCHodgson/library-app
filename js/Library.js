@@ -6,13 +6,11 @@ export default class Library {
         this.booksList = [];
         this.availableId = 1;
         this.#addTestBooks();
-        window.addEventListener('resize', this.moveLastItem());
     }
 
     addBookToLibrary(title, author, description, read, img) {
         this.booksList.push(new Book(this.availableId, title, author, description, read, img))
         this.availableId += 1;
-        this.moveLastItem();
     }
 
     removeBookFromLibrary(id) {
@@ -25,11 +23,12 @@ export default class Library {
 
     moveLastItem() {
         const gridContainer = document.querySelector('.books-list');
-        const items = Array.from(gridContainer.children);
+        const dummyCard = gridContainer.querySelector(".dummy-card");
 
-        console.log(gridContainer.children.length)
-        const lastItem = items.pop();
-        gridContainer.appendChild(lastItem);
+        if (dummyCard) {
+            dummyCard.remove()
+            gridContainer.appendChild(dummyCard);
+        }
     }
 
     // method for adding dummy data
