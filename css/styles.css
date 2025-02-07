@@ -226,7 +226,7 @@ svg.btn {
     display: grid;
     grid-template-rows: auto 1fr;
     gap: 0.5rem;
-    transition: border 0.2s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
     opacity: 0.9;
 }
