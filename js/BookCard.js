@@ -5,13 +5,13 @@ export default class BookCard {
         this.library = library;
         this.detailsPane = detailsPane;
         this.parentElement = parentElement || document.querySelector(".books-list");
-        this.cardHtml = this.#createCard();
-
-        this.#bindToBook(book);
+        this.cardHtml = this.#createCardHtml();
+        this.bindEvents(this.cardHtml);
+        this.#bindCardToBook(book);
         this.#addToDom(this.cardHtml);
     }
 
-    #createCard() {
+    #createCardHtml() {
 
         const id = this.book.id;
         const img = this.book.img;
@@ -24,13 +24,16 @@ export default class BookCard {
         const icons = document.createElement("div");
         icons.classList.add("card-icons");
 
-        const readIcon = this.#createReadIcon();
-        icons.appendChild(readIcon);
+        const readIconContainer = document.createElement("div");
+        readIconContainer.classList.add("read-icon-container");
+        const readIcon = this.#createReadIcon(icons);
+        readIconContainer.appendChild(readIcon)
+        icons.appendChild(readIconContainer);
 
         icons.appendChild(this.#createDeleteBtn());
         card.appendChild(icons);
 
-        if(img === "") {
+        if (img === "") {
             const altTextArea = document.createElement("div");
             altTextArea.classList.add("card-alt-text");
 
@@ -40,8 +43,6 @@ export default class BookCard {
             altTextArea.appendChild(altText);
             card.appendChild(altTextArea)
         }
-
-        this.bindEvents(card);
         return card;
     }
 
@@ -56,7 +57,7 @@ export default class BookCard {
         </svg>`;
     }
 
-    #bindToBook() {
+    #bindCardToBook() {
         this.book.card = this;
     }
 
@@ -83,25 +84,18 @@ export default class BookCard {
     }
 
     toggleReadIcon() {
-        const icon = this.cardHtml.querySelector(".card-icons");
-        icon.firstChild.replaceWith(this.#createReadIcon(this.book));
+        const readIconContainer = this.cardHtml.querySelector(".read-icon-container");
+        readIconContainer.firstChild.replaceWith(this.#createReadIcon(this.book));
     }
 
     #createReadIcon() {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = this.getReadSvgString().trim();
         const readIcon = tempDiv.firstChild;
-
-        readIcon.addEventListener("click", (event) => {
-            this.toggleRead(this.book);
-            event.stopPropagation();
-        });
         return readIcon;
     }
 
     toggleRead() {
-        console.log("fsdf")
-        console.log(this.book)
         this.book.toggleRead();
         this.toggleReadIcon();
     }
@@ -110,11 +104,6 @@ export default class BookCard {
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("card-delete-btn");
         deleteBtn.textContent = "✖";
-        deleteBtn.addEventListener("click", (event) => {
-            this.deleteCard(event);
-
-
-        });
         return deleteBtn;
     }
 
@@ -130,9 +119,11 @@ export default class BookCard {
         document.querySelector(`[data-book-id="${id}"]`)?.remove();
     }
 
-    bindEvents(card) {
-        this.handleCardHover(card,);
-        this.handleCardSelected(card)
+    bindEvents() {
+        this.handleCardHover();
+        this.handleCardSelected();
+        this.handleDeleteBtnClick();
+        this.handleReadIconClick();
     }
 
     #toggleOtherCardsFocus() {
@@ -147,8 +138,7 @@ export default class BookCard {
         });
     }
 
-    handleCardHover(card) {
-
+    handleCardHover() {
         const handleMouseOver = () => {
             this.#toggleOtherCardsFocus();
         };
@@ -157,16 +147,29 @@ export default class BookCard {
             this.#toggleOtherCardsFocus();
         };
 
-        card.addEventListener("mouseover", handleMouseOver);
-        card.addEventListener("mouseout", handleMouseOut);
+        this.cardHtml.addEventListener("mouseover", handleMouseOver);
+        this.cardHtml.addEventListener("mouseout", handleMouseOut);
     }
 
-    handleCardSelected(card) {
+    handleCardSelected() {
 
-        card.addEventListener("click", () => {
+        this.cardHtml.addEventListener("click", () => {
             this.detailsPane.setDetails(this.book);
             if (!this.detailsPane.isActive)
                 this.detailsPane.togglPane();
+        });
+    }
+
+    handleDeleteBtnClick() {
+        const deleteBtn = this.cardHtml.querySelector("button");
+        deleteBtn.addEventListener("click", (event) => this.deleteCard(event));
+    }
+
+    handleReadIconClick() {
+        const readIconContainer = this.cardHtml.querySelector(".read-icon-container")
+        readIconContainer.addEventListener("click", (event) => {
+            this.toggleRead();
+            event.stopPropagation();
         });
     }
 }
