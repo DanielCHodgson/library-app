@@ -40,7 +40,7 @@ export default class AddBookModal {
       }
     }
 
-    this.library.addBookToLibrary(bookData.title, bookData.author, bookData.description, bookData.read, bookData.img);
+    this.library.addBook(bookData.title, bookData.author, bookData.description, bookData.read, bookData.img);
 
     const newBook = this.library.booksList[this.library.booksList.length - 1]
     new BookCard(newBook, this.library, this.bookDetailsPane, this.cardParentElement, imgUrl);
