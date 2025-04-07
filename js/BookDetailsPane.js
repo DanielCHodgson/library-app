@@ -5,51 +5,66 @@ export default class BookDetailsPane {
   #currentBook;
   #currentCard;
 
+  #closeBtn;
+  #toggle;
+  #title;
+  #author;
+  #desc;
+
   constructor(library, parent) {
     this.#library = library;
     this.#parent = parent;
     this.#isActive = false;
     this.#currentBook = null;
     this.#currentCard = null;
+    this.#cacheElements();
     this.#bindEvents();
   }
 
-  togglePane() {
-    this.#parent.classList.toggle("active");
-    if (this.#isActive) this.#currentBook = null;
-    this.#isActive = !this.#isActive;
+  #cacheElements() {
+    this.#closeBtn = document.getElementById("close-pane");
+    this.#toggle = this.#parent.querySelector(".switch input");
+    this.#title = document.querySelector(".book-title");
+    this.#author = document.querySelector(".book-author");
+    this.#desc = document.querySelector(".book-desc");
+  }
+
+  open(book) {
+    this.setDetails(book);
+    this.#isActive = true;
+    this.#parent.classList.add("active");
+  }
+  
+  close() {
+    this.#parent.classList.remove("active");
+    this.#isActive = false;
+    this.#currentBook = null;
   }
 
   setDetails(book) {
-    if (!this.#parent) return;
     this.#setBookDetails(book);
     this.setToggleStatus();
   }
 
   setToggleStatus() {
-    const toggle = document.querySelector(".book-details-pane input");
-    this.#currentBook.read ? (toggle.checked = true) : (toggle.checked = false);
+    this.#currentBook.getIsRead()
+      ? (this.#toggle.checked = true)
+      : (this.#toggle.checked = false);
   }
 
   #setBookDetails(book) {
     this.#currentBook = book;
-    this.#currentCard = book.card;
-
-    const title = document.querySelector(".book-title");
-    title.textContent = this.#currentBook.title;
-
-    const author = document.querySelector(".book-author");
-    author.textContent = this.#currentBook.author;
-
-    const desc = document.querySelector(".book-desc");
-    desc.textContent = this.#currentBook.description;
+    this.#currentCard = book.getCard();
+    this.#title.textContent = this.#currentBook.getTitle();
+    this.#author.textContent = this.#currentBook.getAuthor();
+    this.#desc.textContent = this.#currentBook.getDescription();
   }
 
   #bindEvents() {
-    const closeButton = document.getElementById("close-pane");
-    closeButton.addEventListener("click", () => this.togglePane());
-
-    const toggle = this.#parent.querySelector(".switch input");
-    toggle.addEventListener("click", () => this.#currentCard.toggleRead());
+    this.#closeBtn.addEventListener("click", () => this.close());
+    this.#toggle.addEventListener("click", () => {
+      console.log(this.#currentCard);
+      this.#currentCard.toggleRead();
+    });
   }
 }

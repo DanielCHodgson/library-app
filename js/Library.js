@@ -41,8 +41,8 @@ export default class Library {
 
   toggleCardsFocus(book) {
     this.#booksList
-      .filter((otherBook) => otherBook.id !== book.id)
-      .map((otherBook) => otherBook.card.getElement())
+      .filter((otherBook) => otherBook.getId() !== book.getId())
+      .map((otherBook) => otherBook.getCard().getElement())
       .forEach((card) => {
         card.classList.contains("unfocussed")
           ? card.classList.remove("unfocussed")
