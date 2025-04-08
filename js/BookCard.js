@@ -22,19 +22,18 @@ export default class BookCard {
     this.#parent = parent || document.querySelector(".books-list");
     this.#element = this.#createElement();
     this.#isReadIconClicked = false;
-
     this.#bindEvents();
     this.render(this.#element);
   }
 
   #createElement() {
     const id = this.#book.getId();
-    const img = this.#book.getImg();
+    const imgUrl = this.#book.getImgUrl();
 
     const card = document.createElement("div");
     card.classList.add("book-card");
     card.dataset.bookId = id;
-    if (img) this.setBackgorundImage(img, card);
+    if (imgUrl) this.setBackgorundImage(imgUrl, card);
 
     const icons = document.createElement("div");
     icons.classList.add("card-icons");
@@ -43,7 +42,7 @@ export default class BookCard {
 
     card.appendChild(icons);
 
-    if (img === "") card.appendChild(this.#createDefaultCoverText());
+    if (imgUrl === "") card.appendChild(this.#createDefaultCoverText());
 
     return card;
   }
@@ -128,7 +127,6 @@ export default class BookCard {
   }
 
   #handleMouseEnter() {
-    console.log(this.#isReadIconClicked);
     if (this.#isReadIconClicked) return;
     this.#library.toggleCardsFocus(this.#book);
   }

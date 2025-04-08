@@ -4,16 +4,16 @@ export default class Book {
   #author;
   #description;
   #isRead;
-  #img;
+  #imgUrl;
   #card;
 
-  constructor(id, title, author, description, isRead, img) {
+  constructor(id, title, author, description, isRead, imgUrl) {
     this.#id = id;
     this.#title = title;
     this.#author = author;
     this.#description = description;
     this.#isRead = isRead;
-    this.#img = img;
+    this.#imgUrl = imgUrl;
     this.#card = null;
   }
 
@@ -40,8 +40,8 @@ export default class Book {
     return this.#isRead;
   }
 
-  getImg() {
-    return this.#img;
+  getImgUrl() {
+    return this.#imgUrl;
   }
 
   getCard() {

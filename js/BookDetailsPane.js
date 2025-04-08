@@ -63,7 +63,6 @@ export default class BookDetailsPane {
   #bindEvents() {
     this.#closeBtn.addEventListener("click", () => this.close());
     this.#toggle.addEventListener("click", () => {
-      console.log(this.#currentCard);
       this.#currentCard.toggleRead();
     });
   }

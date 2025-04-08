@@ -1,4 +1,6 @@
 import BookCard from "./BookCard.js";
+import Book from "./Book.js";
+import FormValidator from "./FormValidator.js";
 
 export default class AddBookModal {
   #library;
@@ -9,13 +11,17 @@ export default class AddBookModal {
   #openBtn;
   #closeBtn;
   #submitBtn;
+  #title;
+  #author;
+  #description;
+  #imgUrl;
   #isReadCheckbox;
 
   constructor(library, parent, detailsPane) {
     this.#library = library;
     this.#parent = parent;
     this.#detailsPane = detailsPane;
-    this.#cachElements;
+    this.#cachElements();
     this.bindEvents();
   }
 
@@ -25,6 +31,10 @@ export default class AddBookModal {
     this.#openBtn = document.getElementById("add-book-btn");
     this.#closeBtn = document.getElementById("modal-close-btn");
     this.#submitBtn = document.getElementById("book-submit");
+    this.#title = document.getElementById("title");
+    this.#author = document.getElementById("author");
+    this.#description = document.getElementById("description");
+    this.#imgUrl = document.getElementById("imgUrl");
     this.#isReadCheckbox = document.getElementById("read");
   }
 
@@ -43,27 +53,18 @@ export default class AddBookModal {
     const bookData = this.getBookData();
     if (!this.isValidEntry(bookData)) return;
 
-    let imgUrl = "";
-
-    if (bookData.img) {
-      if (this.isValidImageUrl(bookData.img)) {
-        imgUrl = bookData.img;
-      } else {
-        return;
-      }
-    }
-
     this.#library.addBook(
-      bookData.title,
-      bookData.author,
-      bookData.description,
-      bookData.read,
-      bookData.img
+      new Book(
+        bookData.title,
+        bookData.author,
+        bookData.description,
+        bookData.read,
+        bookData.img
+      )
     );
 
-    const newBook = this.#library.booksList[this.#library.booksList.length - 1];
     new BookCard(
-      newBook,
+      this.#library.getBooks()[this.#library.getBooks().length - 1],
       this.#library,
       this.#detailsPane,
       this.#parent,
@@ -73,41 +74,37 @@ export default class AddBookModal {
     this.close();
   }
 
-  isValidImageUrl(url) {
-    const regex = /\.(jpg|jpeg|png|gif|bmp)$/i;
-    if (!regex.test(url)) {
-      alert(
-        "Please enter a valid image URL ending with .jpg, .jpeg, .png, .gif, or .bmp"
-      );
-      return false;
-    }
-
-    return true;
-  }
 
   getBookData() {
     return {
-      title: document.getElementById("title").value.trim(),
-      author: document.getElementById("author").value.trim(),
-      description: document.getElementById("description").value.trim(),
-      img: document.getElementById("imgUrl").value.trim(),
+      title: this.#title.value.trim(),
+      author: this.#author.value.trim(),
+      description: this.#description.value.trim(),
+      img: this.#imgUrl.value.trim(),
       read: this.#isReadCheckbox.checked,
     };
   }
 
-  isValidEntry({ title, author, description }) {
+  isValidEntry() {
     const errors = [];
+  
+    const titleValid = FormValidator.validateTitle(this.#title);
+    if (!titleValid) errors.push(this.#title.validationMessage);
+  
+    const authorValid = FormValidator.validateAuthor(this.#author);
+    if (!authorValid) errors.push(this.#author.validationMessage);
+  
+    const descriptionValid = FormValidator.validateDescription(this.#description);
+    if (!descriptionValid) errors.push(this.#description.validationMessage);
 
-    if (!title) errors.push("Enter a title.");
-    if (!author) errors.push("Enter an author.");
-    if (!description) errors.push("Enter a description.");
-    if (author && /\d/.test(author))
-      errors.push("Author name cannot contain numbers.");
-
+    const imgUrlValid = FormValidator.validateImgUrl(this.#imgUrl);
+    if (!imgUrlValid) errors.push(this.#imgUrl.validationMessage);
+  
     if (errors.length > 0) {
       this.showErrorMessages(errors);
       return false;
     }
+  
     return true;
   }
 
