@@ -17,11 +17,11 @@ export default class Library {
   }
 
   removeBook(id) {
-    this.#booksList = this.#booksList.filter((book) => book.id !== id);
+    this.#booksList = this.#booksList.filter((book) => book.getId() !== id);
   }
 
   getBookById(id) {
-    return this.#booksList.find((book) => book.id === id);
+    return this.#booksList.find((book) => String(book.getId()) === String(id));
   }
 
   getBooks() {

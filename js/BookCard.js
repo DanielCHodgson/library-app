@@ -100,8 +100,8 @@ export default class BookCard {
     const id = this.#element.dataset.bookId;
     const book = this.#library.getBookById(id);
 
-    this.#library.removeBook(id);
     this.#library.toggleCardsFocus(book);
+    this.#library.removeBook(id);
     if (this.#detailsPane.isActive) this.#detailsPane.close();
     this.#destroy();
     event.stopPropagation();
@@ -162,8 +162,12 @@ export default class BookCard {
 
   #destroy() {
     this.#element.remove();
-    this.#element.removeEventListener("mouseenter", handleMouseEnter);
-    this.#element.removeEventListener("mouseleave", handleMouseLeave);
+    this.#element.removeEventListener("mouseenter", () =>
+      this.#handleMouseEnter()
+    );
+    this.#element.removeEventListener("mouseleave", () =>
+      this.#handleMouseLeave()
+    );
     this.#element.removeEventListener("click", () => this.#handleCardClick());
     this.#deleteBtn.removeEventListener("click", (event) =>
       this.#handleDeleteClick(event)
@@ -171,7 +175,7 @@ export default class BookCard {
     this.#readIcon.removeEventListener("click", (event) =>
       this.#handleReadIconClick(event)
     );
-    this.#readIcon.removeEventListener("click", () =>
+    this.#readIcon.removeEventListener("mouseleave", () =>
       this.#handleReadIconMouseLeave()
     );
     this.deleteBtn = null;
