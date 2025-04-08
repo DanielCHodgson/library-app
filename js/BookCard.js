@@ -27,7 +27,6 @@ export default class BookCard {
   }
 
   #createElement() {
-    console.log(this.#book)
     const id = this.#book.getId();
     const imgUrl = this.#book.getImgUrl();
 
