@@ -28,6 +28,10 @@ export default class Library {
     return this.#booksList;
   }
 
+  getIndex() {
+    return this.#index;
+  }
+
   moveLastItem() {
     const gridContainer = document.querySelector(".books-list");
 

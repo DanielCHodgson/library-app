@@ -57,20 +57,24 @@
                 <fieldset>
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" minLength="1" maxlength="30" required placeholder="Enter the title">
+                    <p class="error"></p>
                 </fieldset>
                 <fieldset>
                     <label for="author">Author</label>
                     <input type="text" id="author" name="author" minLength="1" maxlength="30" required pattern="[A-Za-z\s]+"
                         placeholder="Enter the author's name">
+                        <p class="error"></p>
                 </fieldset>
                 <fieldset>
                     <label for="description">Description</label>
                     <textarea id="description" name="description" rows="4" minLength="10" maxlength="150" required
                         placeholder="Enter a description"></textarea>
+                        <p class="error"></p>
                 </fieldset>
                 <fieldset>
                     <label for="imgUrl">Image link</label>
                     <input type="url" id="imgUrl" name="imgUrl" placeholder="https://example.com/img.jpeg">
+                    <p class="error"></p>
                 </fieldset>
                 <fieldset class="checkbox">
                     <label for="read">Read?</label>

@@ -4,7 +4,9 @@ export default class FormValidator {
       if (title.validity.valueMissing) {
         title.setCustomValidity("Title is a required field.");
       } else if (title.validity.tooShort) {
-        title.setCustomValidity(`Title should be at least ${title.minLength} characters.`);
+        title.setCustomValidity(
+          `Title should be at least ${title.minLength} characters.`
+        );
       } else {
         title.setCustomValidity("");
       }
@@ -34,7 +36,9 @@ export default class FormValidator {
       if (desc.validity.valueMissing) {
         desc.setCustomValidity("Description is a required field.");
       } else if (desc.validity.tooShort) {
-        desc.setCustomValidity(`Description must be at least ${desc.minLength} characters.`);
+        desc.setCustomValidity(
+          `Description must be at least ${desc.minLength} characters.`
+        );
       } else {
         desc.setCustomValidity("");
       }

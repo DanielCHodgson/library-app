@@ -27,6 +27,7 @@ export default class BookCard {
   }
 
   #createElement() {
+    console.log(this.#book)
     const id = this.#book.getId();
     const imgUrl = this.#book.getImgUrl();
 
@@ -65,7 +66,7 @@ export default class BookCard {
     altTextArea.classList.add("card-alt-text");
 
     const altText = document.createElement("p");
-    altText.textContent = this.#book.title;
+    altText.textContent = this.#book.getTitle();
 
     altTextArea.appendChild(altText);
     return altTextArea;

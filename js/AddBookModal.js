@@ -11,31 +11,65 @@ export default class AddBookModal {
   #openBtn;
   #closeBtn;
   #submitBtn;
-  #title;
-  #author;
-  #description;
-  #imgUrl;
+  #fields;
   #isReadCheckbox;
+  #errors;
 
   constructor(library, parent, detailsPane) {
     this.#library = library;
     this.#parent = parent;
     this.#detailsPane = detailsPane;
-    this.#cachElements();
-    this.bindEvents();
+    this.#errors = [];
+    this.#cacheElements();
+    this.#bindEvents();
   }
 
-  #cachElements() {
+  #cacheElements() {
     this.#dialog = document.getElementById("new-book-modal");
     this.#form = document.getElementById("book-details-form");
     this.#openBtn = document.getElementById("add-book-btn");
     this.#closeBtn = document.getElementById("modal-close-btn");
     this.#submitBtn = document.getElementById("book-submit");
-    this.#title = document.getElementById("title");
-    this.#author = document.getElementById("author");
-    this.#description = document.getElementById("description");
-    this.#imgUrl = document.getElementById("imgUrl");
+    this.#fields = {
+      title: document.getElementById("title"),
+      author: document.getElementById("author"),
+      description: document.getElementById("description"),
+      img: document.getElementById("imgUrl"),
+    };
     this.#isReadCheckbox = document.getElementById("read");
+  }
+
+  #bindEvents() {
+    this.#openBtn?.addEventListener("click", () => this.open());
+    this.#closeBtn?.addEventListener("click", () => this.close());
+    this.#submitBtn?.addEventListener("click", (event) => this.submit(event));
+
+    for (const [fieldName, element] of Object.entries(this.#fields)) {
+      element?.addEventListener("input", () =>
+        this.#validateField(fieldName, element)
+      );
+    }
+  }
+
+  #validateField(fieldName, element) {
+    const validationMap = {
+      title: FormValidator.validateTitle,
+      author: FormValidator.validateAuthor,
+      description: FormValidator.validateDescription,
+      img: FormValidator.validateImgUrl,
+    };
+
+    const isValid = validationMap[fieldName](element);
+    const errorElement = element.nextElementSibling;
+
+    if (!isValid) {
+      this.#errors.push(element.validationMessage);
+      this.#fields[fieldName].classList.add("error");
+      if (errorElement) errorElement.textContent = element.validationMessage;
+    } else {
+      if (errorElement) errorElement.textContent = "";
+      this.#fields[fieldName].classList.remove("error");
+    }
   }
 
   open() {
@@ -43,85 +77,49 @@ export default class AddBookModal {
   }
 
   close() {
-    this.#unbindEvents();
     this.#dialog?.close();
   }
 
   submit(event) {
     event.preventDefault();
+    this.#errors = [];
 
-    const bookData = this.getBookData();
-    if (!this.isValidEntry(bookData)) return;
+    for (const [fieldName, element] of Object.entries(this.#fields)) {
+      this.#validateField(fieldName, element);
+    }
 
-    this.#library.addBook(
-      new Book(
-        bookData.title,
-        bookData.author,
-        bookData.description,
-        bookData.read,
-        bookData.img
-      )
+    if (this.#errors.length > 0) return;
+
+    const data = this.#getBookData();
+    const newBook = new Book(
+      this.#library.getIndex(),
+      data.title,
+      data.author,
+      data.description,
+      data.read,
+      data.img
     );
 
+    this.#library.addBook(newBook);
+
     new BookCard(
-      this.#library.getBooks()[this.#library.getBooks().length - 1],
+      newBook,
       this.#library,
       this.#detailsPane,
       this.#parent,
-      imgUrl
     );
+
     this.#form.reset();
     this.close();
   }
 
-
-  getBookData() {
+  #getBookData() {
     return {
-      title: this.#title.value.trim(),
-      author: this.#author.value.trim(),
-      description: this.#description.value.trim(),
-      img: this.#imgUrl.value.trim(),
+      title: this.#fields.title.value.trim(),
+      author: this.#fields.author.value.trim(),
+      description: this.#fields.description.value.trim(),
+      img: this.#fields.img.value.trim(),
       read: this.#isReadCheckbox.checked,
     };
-  }
-
-  isValidEntry() {
-    const errors = [];
-  
-    const titleValid = FormValidator.validateTitle(this.#title);
-    if (!titleValid) errors.push(this.#title.validationMessage);
-  
-    const authorValid = FormValidator.validateAuthor(this.#author);
-    if (!authorValid) errors.push(this.#author.validationMessage);
-  
-    const descriptionValid = FormValidator.validateDescription(this.#description);
-    if (!descriptionValid) errors.push(this.#description.validationMessage);
-
-    const imgUrlValid = FormValidator.validateImgUrl(this.#imgUrl);
-    if (!imgUrlValid) errors.push(this.#imgUrl.validationMessage);
-  
-    if (errors.length > 0) {
-      this.showErrorMessages(errors);
-      return false;
-    }
-  
-    return true;
-  }
-
-  showErrorMessages(errors) {
-    const errorMessage = errors.join("\n");
-    alert(errorMessage);
-  }
-
-  bindEvents() {
-    this.#openBtn?.addEventListener("click", () => this.open());
-    this.#closeBtn?.addEventListener("click", () => this.close());
-    this.#submitBtn?.addEventListener("click", (event) => this.submit(event));
-  }
-
-  #unbindEvents() {
-    this.#openBtn?.addEventListener("click", () => this.open());
-    this.#closeBtn?.addEventListener("click", () => this.close());
-    this.#submitBtn?.addEventListener("click", (event) => this.submit(event));
   }
 }
